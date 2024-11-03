@@ -1,0 +1,67 @@
+package com.unicarioca.portal.service.crud;
+
+import com.unicarioca.portal.controller.dto.AlunoRequest;
+import com.unicarioca.portal.controller.dto.AlunoResponse;
+import com.unicarioca.portal.entity.Aluno;
+import com.unicarioca.portal.entity.Endereco;
+import com.unicarioca.portal.repository.AlunoRepository;
+import com.unicarioca.portal.service.mapper.AlunoMapper;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+public class AlunoCrudService {
+
+    private AlunoRepository alunoRepository;
+    private EnderecoCrudService enderecoCrudService;
+    private ParenteCrudService parenteCrudService;
+
+    public Aluno getAlunoById(Long id) {
+        return alunoRepository.findById(id).orElse(null);
+    }
+
+    public Aluno getAlunoByMatricula(String matricula) {
+        return alunoRepository.findByMatricula(matricula);
+    }
+
+    public Aluno getAlunoByCpf(String cpf) {
+        return alunoRepository.findByCpf(cpf);
+    }
+
+    public Aluno saveAluno(AlunoRequest alunoRequest) {
+        Aluno aluno = alunoRepository.findByCpf(alunoRequest.getCpf());
+        if (aluno != null) {
+            return aluno;
+        }
+        aluno = AlunoMapper.toEntity(alunoRequest, enderecoCrudService.saveEndereco(alunoRequest.getEndereco()));
+
+        aluno.setResponsaveis(alunoRequest.getResponsaveis().stream().map(parenteCrudService::saveParente).collect(Collectors.toSet()));
+
+
+        return alunoRepository.save(aluno);
+    }
+
+    public Aluno updateAluno(Long id, AlunoRequest alunoRequest) {
+        Aluno aluno = alunoRepository.findById(id).orElse(null);
+        if (aluno == null) {
+            return null;
+        }
+
+        aluno.setNome(alunoRequest.getNome());
+        aluno.setEmail(alunoRequest.getEmail());
+        aluno.setCpf(alunoRequest.getCpf());
+        aluno.setTelefone(alunoRequest.getTelefone());
+        aluno.setMatricula(alunoRequest.getMatricula());
+        Endereco endereco = enderecoCrudService.updateEndereco(aluno.getEndereco().getId(), alunoRequest.getEndereco());
+        aluno.setEndereco(endereco == null ? aluno.getEndereco() : endereco);
+
+        return alunoRepository.save(aluno);
+    }
+
+    public void deleteAluno(Long id) {
+        alunoRepository.deleteById(id);
+    }
+}
