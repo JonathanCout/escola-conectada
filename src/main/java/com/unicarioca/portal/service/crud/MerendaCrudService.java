@@ -3,12 +3,13 @@ package com.unicarioca.portal.service.crud;
 import com.unicarioca.portal.entity.Merenda;
 import com.unicarioca.portal.repository.MerendaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class MerendaCrudService {
 
+    @Autowired
     private MerendaRepository merendaRepository;
 
     public Merenda getMerendaById(Long id) {

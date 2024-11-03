@@ -9,15 +9,17 @@ import com.unicarioca.portal.service.crud.AlunoCrudService;
 import com.unicarioca.portal.service.crud.TurmaCrudService;
 import com.unicarioca.portal.service.mapper.AlunoMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 
 @Service
-@RequiredArgsConstructor
 public class AlunoService {
 
+    @Autowired
     private AlunoCrudService alunoCrudService;
+    @Autowired
     private TurmaCrudService turmaCrudService;
 
     public void matricularAluno(String matricula, String codigoTurma) {

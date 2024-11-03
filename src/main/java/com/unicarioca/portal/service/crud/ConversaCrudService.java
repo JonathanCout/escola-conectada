@@ -10,17 +10,21 @@ import com.unicarioca.portal.repository.ConversaRepository;
 import com.unicarioca.portal.service.mapper.ConversaMapper;
 import com.unicarioca.portal.service.mapper.MensagemMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class ConversaCrudService {
 
+    @Autowired
     private ConversaRepository conversaRepository;
+    @Autowired
     private AlunoCrudService alunoCrudService;
+    @Autowired
     private ProfessorCrudService professorCrudService;
+    @Autowired
     private MensagemCrudService mensagemCrudService;
 
     public Conversa getConversaById(Long conversaId) {

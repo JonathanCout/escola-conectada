@@ -5,14 +5,14 @@ import com.unicarioca.portal.controller.dto.TurmaResponse;
 import com.unicarioca.portal.service.crud.TurmaCrudService;
 import com.unicarioca.portal.service.mapper.TurmaMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class TurmaService {
 
+    @Autowired
     private TurmaCrudService turmaCrudService;
-
 
     public TurmaResponse getTurma(String codigo, String nome) {
         if (codigo != null) {

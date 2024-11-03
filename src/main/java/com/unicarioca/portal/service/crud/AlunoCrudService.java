@@ -7,16 +7,19 @@ import com.unicarioca.portal.entity.Endereco;
 import com.unicarioca.portal.repository.AlunoRepository;
 import com.unicarioca.portal.service.mapper.AlunoMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 public class AlunoCrudService {
 
+    @Autowired
     private AlunoRepository alunoRepository;
+    @Autowired
     private EnderecoCrudService enderecoCrudService;
+    @Autowired
     private ParenteCrudService parenteCrudService;
 
     public Aluno getAlunoById(Long id) {

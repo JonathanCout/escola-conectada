@@ -2,11 +2,13 @@ package com.unicarioca.portal.service;
 
 import com.unicarioca.portal.entity.Evento;
 import com.unicarioca.portal.repository.EventoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EventoService {
 
+    @Autowired
     private EventoRepository eventoRepository;
     public Evento getEvento(String nome) {
         return eventoRepository.findByNome(nome);

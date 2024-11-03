@@ -5,12 +5,13 @@ import com.unicarioca.portal.entity.Endereco;
 import com.unicarioca.portal.repository.EnderecoRepository;
 import com.unicarioca.portal.service.mapper.EnderecoMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class EnderecoCrudService {
 
+    @Autowired
     private EnderecoRepository enderecoRepository;
 
     public Endereco getEnderecoById(Long id) {

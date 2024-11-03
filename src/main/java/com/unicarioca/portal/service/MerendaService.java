@@ -3,12 +3,13 @@ package com.unicarioca.portal.service;
 import com.unicarioca.portal.entity.Merenda;
 import com.unicarioca.portal.service.crud.MerendaCrudService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class MerendaService {
 
+    @Autowired
     private MerendaCrudService merendaCrudService;
 
     public Merenda getMerenda(String nome) {

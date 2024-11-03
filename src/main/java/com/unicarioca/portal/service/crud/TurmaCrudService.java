@@ -7,14 +7,17 @@ import com.unicarioca.portal.entity.Turma;
 import com.unicarioca.portal.repository.TurmaRepository;
 import com.unicarioca.portal.service.mapper.TurmaMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class TurmaCrudService {
 
+    @Autowired
     private TurmaRepository turmaRepository;
+    @Autowired
     private ProfessorCrudService professorCrudService;
+    @Autowired
     private DisciplinaCrudService disciplinaCrudService;
 
     public Turma getTurmaByCodigo(String codigo) {

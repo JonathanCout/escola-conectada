@@ -5,22 +5,28 @@ import com.unicarioca.portal.controller.dto.AlunoResponse;
 import com.unicarioca.portal.service.AlunoService;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/alunos")
-@RequiredArgsConstructor
 public class AlunoController {
 
+    private final Logger log = LoggerFactory.getLogger(AlunoController.class);
+    @Autowired
     private AlunoService alunoService;
 
     @GetMapping("")
     public ResponseEntity<AlunoResponse> getAluno(@RequestParam(required = false) String cpf, @RequestParam(required = false) String matricula) {
         try{
+            log.info("GET /alunos?cpf={}&matricula={}", cpf, matricula);
             return ResponseEntity.ok(alunoService.getAluno(cpf, matricula));
         }catch (Exception e){
-            return ResponseEntity.badRequest().build();
+            log.error(e.getMessage());
+            return ResponseEntity.internalServerError().build();
         }
 
     }
@@ -30,7 +36,7 @@ public class AlunoController {
         try{
             return ResponseEntity.ok(alunoService.getAlunoById(id));
         }catch (Exception e){
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.internalServerError().build();
         }
     }
 
@@ -39,7 +45,7 @@ public class AlunoController {
         try{
             return ResponseEntity.ok(alunoService.saveAluno(alunoRequest));
         }catch (Exception e){
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.internalServerError().build();
         }
     }
 
@@ -49,7 +55,7 @@ public class AlunoController {
             alunoService.deleteAluno(id);
             return ResponseEntity.ok().build();
         }catch (Exception e){
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.internalServerError().build();
         }
     }
 
