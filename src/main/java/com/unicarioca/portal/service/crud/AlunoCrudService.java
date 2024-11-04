@@ -29,6 +29,9 @@ public class AlunoCrudService {
     public Aluno getAlunoByMatricula(String matricula) {
         return alunoRepository.findByMatricula(matricula);
     }
+    public Aluno getAlunoByEmail(String email) {
+        return alunoRepository.findByEmail(email);
+    }
 
     public Aluno getAlunoByCpf(String cpf) {
         return alunoRepository.findByCpf(cpf);
@@ -67,4 +70,5 @@ public class AlunoCrudService {
     public void deleteAluno(Long id) {
         alunoRepository.deleteById(id);
     }
+
 }

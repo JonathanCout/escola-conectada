@@ -20,10 +20,10 @@ public class AlunoController {
     private AlunoService alunoService;
 
     @GetMapping("")
-    public ResponseEntity<AlunoResponse> getAluno(@RequestParam(required = false) String cpf, @RequestParam(required = false) String matricula) {
+    public ResponseEntity<AlunoResponse> getAluno(@RequestParam(required = false) String cpf, @RequestParam(required = false) String matricula, @RequestParam(required = false) String email) {
         try{
             log.info("GET /alunos?cpf={}&matricula={}", cpf, matricula);
-            return ResponseEntity.ok(alunoService.getAluno(cpf, matricula));
+            return ResponseEntity.ok(alunoService.getAluno(cpf, matricula, email));
         }catch (Exception e){
             log.error(e.getMessage());
             return ResponseEntity.internalServerError().build();

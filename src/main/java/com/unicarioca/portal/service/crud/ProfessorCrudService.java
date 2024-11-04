@@ -36,4 +36,8 @@ public class ProfessorCrudService {
         }
         return null;
     }
+
+    public Professor getProfessorByEmail(String email) {
+        return professorRepository.findByEmail(email);
+    }
 }

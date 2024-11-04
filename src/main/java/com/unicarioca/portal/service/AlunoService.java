@@ -2,6 +2,7 @@ package com.unicarioca.portal.service;
 
 import com.unicarioca.portal.controller.dto.AlunoRequest;
 import com.unicarioca.portal.controller.dto.AlunoResponse;
+import com.unicarioca.portal.controller.dto.LoginRequest;
 import com.unicarioca.portal.entity.Aluno;
 import com.unicarioca.portal.entity.AlunoTurma;
 import com.unicarioca.portal.entity.Turma;
@@ -57,15 +58,15 @@ public class AlunoService {
         turmaCrudService.saveTurma(turma);
     }
 
-    public AlunoResponse getAluno(String matricula, String cpf) {
+    public AlunoResponse getAluno(String matricula, String cpf, String email) {
         Aluno aluno;
         if (matricula != null) {
             aluno = alunoCrudService.getAlunoByMatricula(matricula);
-        }
-        else {
+        } else if (cpf != null) {
             aluno = alunoCrudService.getAlunoByCpf(cpf);
-        }
-        if (aluno == null) {
+        } else if (email != null) {
+            aluno = alunoCrudService.getAlunoByEmail(email);
+        } else {
             return null;
         }
         return AlunoMapper.toDto(aluno);
@@ -86,4 +87,5 @@ public class AlunoService {
     public AlunoResponse updateAluno(Long id, AlunoRequest alunoRequest) {
         return AlunoMapper.toDto(alunoCrudService.updateAluno(id, alunoRequest));
     }
+
 }

@@ -22,7 +22,6 @@ public class ProfessorService {
         return ProfessorMapper.toDto(professorCrudService.getProfessor(cpf, matricula));
     }
 
-
     public ProfessorResponse saveProfessor(ProfessorRequest professorRequest) {
         return ProfessorMapper.toDto(professorCrudService.saveProfessor(ProfessorMapper.toEntity(professorRequest)));
     }

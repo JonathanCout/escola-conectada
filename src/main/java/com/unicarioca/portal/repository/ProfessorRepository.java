@@ -7,4 +7,6 @@ public interface ProfessorRepository extends JpaRepository<Professor, Long> {
     Professor findByMatricula(String matricula);
 
     Professor findByCpf(String cpf);
+
+    Professor findByEmail(String email);
 }
