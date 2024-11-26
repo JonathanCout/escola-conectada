@@ -1,6 +1,7 @@
 package com.unicarioca.portal.service.mapper;
 
 import com.unicarioca.portal.controller.dto.EnderecoRequest;
+import com.unicarioca.portal.controller.dto.EnderecoResponse;
 import com.unicarioca.portal.entity.Endereco;
 
 public class EnderecoMapper {
@@ -23,21 +24,21 @@ public class EnderecoMapper {
         return endereco;
     }
 
-    public static EnderecoRequest toDto(Endereco endereco) {
+    public static EnderecoResponse toDto(Endereco endereco) {
         if ( endereco == null ) {
             return null;
         }
 
-        EnderecoRequest enderecoRequest = new EnderecoRequest();
+        EnderecoResponse enderecoResponse = new EnderecoResponse();
 
-        enderecoRequest.setCep( endereco.getCep() );
-        enderecoRequest.setLogradouro( endereco.getLogradouro() );
-        enderecoRequest.setNumero( endereco.getNumero() );
-        enderecoRequest.setComplemento( endereco.getComplemento() );
-        enderecoRequest.setBairro( endereco.getBairro() );
-        enderecoRequest.setCidade( endereco.getCidade() );
-        enderecoRequest.setEstado( endereco.getEstado() );
+        enderecoResponse.setCep( endereco.getCep() );
+        enderecoResponse.setLogradouro( endereco.getLogradouro() );
+        enderecoResponse.setNumero( endereco.getNumero() );
+        enderecoResponse.setComplemento( endereco.getComplemento() );
+        enderecoResponse.setBairro( endereco.getBairro() );
+        enderecoResponse.setCidade( endereco.getCidade() );
+        enderecoResponse.setEstado( endereco.getEstado() );
 
-        return enderecoRequest;
+        return enderecoResponse;
     }
 }

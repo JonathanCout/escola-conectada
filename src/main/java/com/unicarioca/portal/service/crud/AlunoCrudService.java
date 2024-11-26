@@ -6,8 +6,10 @@ import com.unicarioca.portal.entity.Aluno;
 import com.unicarioca.portal.entity.Endereco;
 import com.unicarioca.portal.repository.AlunoRepository;
 import com.unicarioca.portal.service.mapper.AlunoMapper;
+import com.unicarioca.portal.util.PasswordEncoderConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
@@ -21,6 +23,8 @@ public class AlunoCrudService {
     private EnderecoCrudService enderecoCrudService;
     @Autowired
     private ParenteCrudService parenteCrudService;
+    @Autowired
+    private PasswordEncoder passwordEncoderConfig;
 
     public Aluno getAlunoById(Long id) {
         return alunoRepository.findById(id).orElse(null);
@@ -45,6 +49,7 @@ public class AlunoCrudService {
         aluno = AlunoMapper.toEntity(alunoRequest, enderecoCrudService.saveEndereco(alunoRequest.getEndereco()));
 
         aluno.setResponsaveis(alunoRequest.getResponsaveis().stream().map(parenteCrudService::saveParente).collect(Collectors.toSet()));
+        aluno.setSenha(passwordEncoderConfig.encode(alunoRequest.getSenha()));
 
 
         return alunoRepository.save(aluno);

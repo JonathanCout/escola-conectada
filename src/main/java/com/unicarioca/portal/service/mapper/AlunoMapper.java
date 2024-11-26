@@ -18,10 +18,10 @@ public class AlunoMapper {
         alunoResponse.setEmail(aluno.getEmail());
         alunoResponse.setCpf(aluno.getCpf());
         alunoResponse.setTelefone(aluno.getTelefone());
-        alunoResponse.setEndereco(aluno.getEndereco());
+        alunoResponse.setEndereco(EnderecoMapper.toDto(aluno.getEndereco()));
         alunoResponse.setMatricula(aluno.getMatricula());
         alunoResponse.setAno(aluno.getAno());
-
+        System.out.println(aluno.getResponsaveis());
         alunoResponse.setResponsaveis(aluno.getResponsaveis().stream().map(ParenteMapper::toDto).collect(Collectors.toSet()));
 
         return alunoResponse;

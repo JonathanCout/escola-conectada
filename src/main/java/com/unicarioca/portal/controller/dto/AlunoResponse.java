@@ -13,7 +13,7 @@ public class AlunoResponse {
     private String email;
     private String matricula;
     private String cpf;
-    private Endereco endereco;
+    private EnderecoResponse endereco;
     private String telefone;
     private String ano;
     private Set<AlunoTurmaResponse> boletim;

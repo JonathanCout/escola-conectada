@@ -58,12 +58,12 @@ public class AlunoService {
         turmaCrudService.saveTurma(turma);
     }
 
-    public AlunoResponse getAluno(String matricula, String cpf, String email) {
+    public AlunoResponse getAluno(String cpf, String matricula, String email) {
         Aluno aluno;
-        if (matricula != null) {
-            aluno = alunoCrudService.getAlunoByMatricula(matricula);
-        } else if (cpf != null) {
+        if (cpf != null) {
             aluno = alunoCrudService.getAlunoByCpf(cpf);
+        } else if (matricula != null) {
+            aluno = alunoCrudService.getAlunoByMatricula(matricula);
         } else if (email != null) {
             aluno = alunoCrudService.getAlunoByEmail(email);
         } else {
