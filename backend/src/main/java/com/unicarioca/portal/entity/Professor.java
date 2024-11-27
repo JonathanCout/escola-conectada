@@ -18,6 +18,7 @@ public class Professor extends Pessoa {
     private String matricula;
     private String especialidade;
     private String lattes;
+    private String senha;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id")
     private Endereco endereco;
