@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     container_name: springboot-backend
     ports:
-      - "8080:8080" # Mapear a porta do container para localhost
+      - "8082:8082" # Mapear a porta do container para localhost
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-container:5432/portal
       SPRING_DATASOURCE_USERNAME: postgres
@@ -15,6 +15,13 @@ services:
       - postgres-container
     networks:
       - app-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: dockerfile
+    ports:
+      - "3000:3000"
 
   postgres-container:
     image: postgres:15
