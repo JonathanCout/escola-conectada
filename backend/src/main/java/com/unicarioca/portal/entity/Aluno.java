@@ -25,8 +25,9 @@ public class Aluno extends Pessoa {
     private Endereco endereco;
     private String ano;
     private String matricula;
+    private String senha;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "parente_aluno",
             joinColumns = @JoinColumn(name = "aluno_id"),
             inverseJoinColumns = @JoinColumn(name = "parente_id"))

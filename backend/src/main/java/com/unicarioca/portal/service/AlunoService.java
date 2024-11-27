@@ -76,7 +76,7 @@ public class AlunoService {
         return AlunoMapper.toDto(alunoCrudService.getAlunoById(id));
     }
 
-    public AlunoResponse saveAluno(AlunoRequest alunoRequest) {
+    public AlunoResponse saveAluno(AlunoRequest alunoRequest) throws Exception {
         return AlunoMapper.toDto(alunoCrudService.saveAluno(alunoRequest));
     }
 

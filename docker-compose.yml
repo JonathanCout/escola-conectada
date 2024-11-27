@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   backend:
     build:
@@ -6,11 +5,11 @@ services:
       dockerfile: Dockerfile
     container_name: springboot-backend
     ports:
-      - "8080:8080" # Mapear a porta do container para localhost
+      - "8082:8082" # Mapear a porta do container para localhost
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-container:5432/portal
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: admin
+      DB-URL: jdbc:postgresql://postgres-container:5432/escola-conectada
+      DB-USR: postgres
+      DB-PSW: admin
     depends_on:
       - postgres-container
     networks:
@@ -20,7 +19,7 @@ services:
     image: postgres:15
     container_name: postgres-container
     environment:
-      POSTGRES_DB: portal
+      POSTGRES_DB: escola-conectada
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin
     ports:

@@ -19,10 +19,7 @@ public class Parente extends Pessoa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToMany
-    @JoinTable(name = "parente_aluno",
-               joinColumns = @JoinColumn(name = "parente_id"),
-               inverseJoinColumns = @JoinColumn(name = "aluno_id"))
+    @ManyToMany(mappedBy = "responsaveis")
     private Set<Aluno> alunosResponsaveis;
 
 }

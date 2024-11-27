@@ -11,5 +11,4 @@ public class Pessoa {
     private String cpf;
     private String email;
     private String telefone;
-    private String senha;
 }
