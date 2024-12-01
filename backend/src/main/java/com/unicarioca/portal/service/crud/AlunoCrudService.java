@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,6 +47,7 @@ public class AlunoCrudService {
         return alunoRepository.findByCpf(cpf);
     }
 
+    @Transactional
     public Aluno saveAluno(AlunoRequest alunoRequest) {
         Aluno aluno = alunoRepository.findByCpf(alunoRequest.getCpf());
         if (aluno != null) {
@@ -60,6 +62,7 @@ public class AlunoCrudService {
         return alunoRepository.save(aluno);
     }
 
+    @Transactional
     public Aluno updateAluno(Long id, AlunoRequest alunoRequest) {
         Aluno aluno = alunoRepository.findById(id).orElse(null);
         if (aluno == null) {
@@ -78,6 +81,7 @@ public class AlunoCrudService {
     }
 
     public void deleteAluno(Long id) {
+        alunoRepository.removeParenteJunction(id);
         alunoRepository.deleteById(id);
     }
 
