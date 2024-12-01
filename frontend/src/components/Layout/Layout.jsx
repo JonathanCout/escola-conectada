@@ -1,25 +1,19 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../../services/authService';
-import { 
-  Box, 
-  Drawer, 
-  AppBar, 
-  Toolbar, 
-  List, 
-  Typography, 
+import {
+  Box,
+  Drawer,
+  AppBar,
+  Toolbar,
+  List,
   Divider,
   IconButton,
   ListItem,
   ListItemIcon,
-  ListItemText,
-  Avatar,
-  Menu,
-  MenuItem
+  Tooltip,
 } from '@mui/material';
-
-// Icons
+import { Avatar, Menu, MenuItem } from '@mui/material';
 import PeopleIcon from '@mui/icons-material/People';
 import SchoolIcon from '@mui/icons-material/School';
 import AssignmentIcon from '@mui/icons-material/Assignment';
@@ -27,8 +21,9 @@ import RestaurantIcon from '@mui/icons-material/Restaurant';
 import EventIcon from '@mui/icons-material/Event';
 import MessageIcon from '@mui/icons-material/Message';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 export const Layout = ({ children }) => {
   const navigate = useNavigate();
@@ -53,44 +48,34 @@ export const Layout = ({ children }) => {
     { text: 'Mensagens', icon: <MessageIcon />, path: '/conversas' },
   ];
 
-  const handleProfileClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
+  const handleProfileClick = (event) => setAnchorEl(event.currentTarget);
+  const handleClose = () => setAnchorEl(null);
   const handleLogout = () => {
     authService.logout();
     navigate('/login');
   };
-  
-  if (!user) {
-    return null; // ou um componente de loading
-  }
+
+  if (!user) return null;
 
   return (
     <Box sx={{ display: 'flex' }}>
       {/* AppBar */}
       <AppBar
         position="fixed"
-        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
+        sx={{
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          height: '56px',
+          bgcolor: '#007bff',
+        }}
       >
-        <Toolbar sx={{ justifyContent: 'space-between' }}>
-          <Typography variant="h6" noWrap component="div">
-            Portal Escolar
-          </Typography>
+        <Toolbar sx={{ justifyContent: 'space-between', px: 2 }}>
+          <h6 className="text-white mb-0">Portal Escolar</h6>
           <IconButton color="inherit" onClick={handleProfileClick}>
-            <Avatar sx={{ width: 32, height: 32 }}>
+            <Avatar>
               <AccountCircleIcon />
             </Avatar>
           </IconButton>
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
+          <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
             <MenuItem onClick={() => { handleClose(); navigate('/perfil'); }}>
               Perfil
             </MenuItem>
@@ -101,31 +86,26 @@ export const Layout = ({ children }) => {
 
       {/* Sidebar */}
       <Drawer
+        variant="permanent"
         sx={{
           width: drawerWidth,
           flexShrink: 0,
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
+            bgcolor: '#f8f9fa',
           },
         }}
-        variant="permanent"
-        anchor="left"
       >
         <Toolbar />
         <Divider />
         <List>
           {menuItems.map((item) => (
-            <ListItem 
-              button 
-              key={item.text}
-              onClick={() => navigate(item.path)}
-            >
-              <ListItemIcon>
-                {item.icon}
-              </ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItem>
+            <Tooltip title={item.text} placement="right" key={item.text}>
+              <ListItem button onClick={() => navigate(item.path)}>
+                <ListItemIcon sx={{ minWidth: '40px' }}>{item.icon}</ListItemIcon>
+              </ListItem>
+            </Tooltip>
           ))}
         </List>
       </Drawer>
@@ -137,7 +117,7 @@ export const Layout = ({ children }) => {
           flexGrow: 1,
           bgcolor: 'background.default',
           p: 3,
-          mt: 8, // Espaço para o AppBar
+          mt: '56px',
         }}
       >
         {children}
