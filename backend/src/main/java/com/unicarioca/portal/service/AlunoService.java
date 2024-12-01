@@ -31,6 +31,7 @@ public class AlunoService {
         } else if (email != null) {
             aluno = alunoCrudService.getAlunoByEmail(email);
         } else {
+            log.info("Nenhuma informação foi passada, retornando nulo");
             return null;
         }
         return AlunoMapper.toDto(aluno);

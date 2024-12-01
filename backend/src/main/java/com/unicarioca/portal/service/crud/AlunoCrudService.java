@@ -3,6 +3,7 @@ package com.unicarioca.portal.service.crud;
 import com.unicarioca.portal.controller.dto.AlunoRequest;
 import com.unicarioca.portal.entity.Aluno;
 import com.unicarioca.portal.entity.Endereco;
+import com.unicarioca.portal.entity.Parente;
 import com.unicarioca.portal.repository.AlunoRepository;
 import com.unicarioca.portal.service.mapper.AlunoMapper;
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,18 +35,43 @@ public class AlunoCrudService {
     }
 
     public Aluno getAlunoById(Long id) {
-        return alunoRepository.findById(id).orElse(null);
+        Aluno aluno = alunoRepository.findById(id).orElse(null);
+        if (aluno == null){
+            return aluno;
+        }
+        aluno.setResponsaveis(getAlunoParentes(aluno.getId()));
+        return aluno;
+
     }
 
     public Aluno getAlunoByMatricula(String matricula) {
-        return alunoRepository.findByMatricula(matricula);
+        Aluno aluno = alunoRepository.findByMatricula(matricula);
+        if (aluno == null){
+            return aluno;
+        }
+        aluno.setResponsaveis(getAlunoParentes(aluno.getId()));
+        return aluno;
     }
     public Aluno getAlunoByEmail(String email) {
-        return alunoRepository.findByEmail(email);
+        Aluno aluno = alunoRepository.findByEmail(email);
+        if (aluno == null){
+            return aluno;
+        }
+        aluno.setResponsaveis(getAlunoParentes(aluno.getId()));
+        return aluno;
     }
 
     public Aluno getAlunoByCpf(String cpf) {
-        return alunoRepository.findByCpf(cpf);
+        Aluno aluno = alunoRepository.findByCpf(cpf);
+        if (aluno == null){
+            return aluno;
+        }
+        aluno.setResponsaveis(getAlunoParentes(aluno.getId()));
+        return aluno;
+    }
+
+    public Set<Parente> getAlunoParentes(Long aluno_id){
+        return parenteCrudService.getParentesByAluno(aluno_id);
     }
 
     @Transactional

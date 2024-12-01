@@ -10,5 +10,4 @@ public class ParenteResponse {
     private String cpf;
     private String email;
     private String telefone;
-    private String senha;
 }

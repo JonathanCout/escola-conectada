@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Set;
+
 @Service
 public class ParenteCrudService {
 
@@ -19,6 +22,10 @@ public class ParenteCrudService {
 
     public Parente getParenteByCpf(String cpf){
         return parenteRepository.findByCpf(cpf);
+    }
+
+    public Set<Parente> getParentesByAluno(Long alunoId){
+        return parenteRepository.findByAlunoId(alunoId);
     }
 
     @Transactional

@@ -11,15 +11,21 @@ import java.util.Set;
 
 @Entity
 @Data
-@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Parente extends Pessoa {
+public class Parente{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToMany(mappedBy = "responsaveis")
+    private String nome;
+    private String cpf;
+    private String email;
+    private String telefone;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "parente_aluno",
+            joinColumns = @JoinColumn(name = "parente_id"),
+            inverseJoinColumns = @JoinColumn(name = "aluno_id"))
     private Set<Aluno> alunosResponsaveis;
 
 }
