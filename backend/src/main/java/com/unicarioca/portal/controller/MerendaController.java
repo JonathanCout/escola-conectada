@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/merendas")
 @RequiredArgsConstructor
@@ -21,6 +23,17 @@ public class MerendaController {
         try{
             log.info("GET /merendas/name={}",nome);
             return ResponseEntity.ok(merendaService.getMerenda(nome));
+        }catch (Exception e){
+            log.error(e.getMessage());
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<Merenda>> getAllMerendas(){
+        try{
+            log.info("GET /eventos/list");
+            return ResponseEntity.ok(merendaService.getAllMerendas());
         }catch (Exception e){
             log.error(e.getMessage());
             return ResponseEntity.badRequest().build();

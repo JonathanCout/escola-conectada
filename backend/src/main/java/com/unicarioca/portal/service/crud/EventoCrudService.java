@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EventoCrudService {
 
@@ -14,6 +16,14 @@ public class EventoCrudService {
 
     public void deleteEvento(Long id){
         eventoRepository.deleteById(id);
+    }
+
+    public Evento getEvento(String name){
+        return eventoRepository.findByNome(name);
+    }
+
+    public List<Evento> getAllEventos(){
+        return eventoRepository.findAll();
     }
 
     public Evento getEventoById(Long id){

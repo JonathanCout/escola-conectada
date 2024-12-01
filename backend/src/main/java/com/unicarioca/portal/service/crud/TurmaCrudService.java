@@ -6,9 +6,10 @@ import com.unicarioca.portal.entity.Professor;
 import com.unicarioca.portal.entity.Turma;
 import com.unicarioca.portal.repository.TurmaRepository;
 import com.unicarioca.portal.service.mapper.TurmaMapper;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TurmaCrudService {
@@ -60,5 +61,9 @@ public class TurmaCrudService {
 
     public Turma getTurmaByNome(String nome) {
         return turmaRepository.findByNome(nome);
+    }
+
+    public List<Turma> getAllTurmas() {
+        return turmaRepository.findAll();
     }
 }

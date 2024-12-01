@@ -8,11 +8,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TurmaService {
 
     @Autowired
     private TurmaCrudService turmaCrudService;
+
+    public List<TurmaResponse> getAllTurmas() {
+        return turmaCrudService.getAllTurmas().stream().map(TurmaMapper::toDto).toList();
+    }
 
     public TurmaResponse getTurma(String codigo, String nome) {
         if (codigo != null) {
@@ -38,4 +44,5 @@ public class TurmaService {
     public TurmaResponse updateTurma(Long id, TurmaRequest turmaRequest) {
         return TurmaMapper.toDto(turmaCrudService.updateTurma(id, turmaRequest));
     }
+
 }

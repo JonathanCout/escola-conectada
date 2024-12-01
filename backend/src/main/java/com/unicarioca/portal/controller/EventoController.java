@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/eventos")
 @RequiredArgsConstructor
@@ -21,6 +23,17 @@ public class EventoController {
         try{
             log.info("GET /eventos/name={}",nome);
             return ResponseEntity.ok(eventoService.getEvento(nome));
+        }catch (Exception e){
+            log.error(e.getMessage());
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<Evento>> getAllEventos(){
+        try{
+            log.info("GET /eventos/list");
+            return ResponseEntity.ok(eventoService.getAllEventos());
         }catch (Exception e){
             log.error(e.getMessage());
             return ResponseEntity.badRequest().build();

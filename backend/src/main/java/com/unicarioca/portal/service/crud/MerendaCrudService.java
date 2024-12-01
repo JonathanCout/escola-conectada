@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MerendaCrudService {
 
@@ -18,6 +20,10 @@ public class MerendaCrudService {
 
     public Merenda getMerenda(String nome) {
         return merendaRepository.findByNome(nome);
+    }
+
+    public List<Merenda> getAllMerendas(){
+        return merendaRepository.findAll();
     }
 
     public Merenda saveMerenda(Merenda merenda) {

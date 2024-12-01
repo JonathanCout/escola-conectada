@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/turmas")
 @RequiredArgsConstructor
@@ -17,6 +19,17 @@ public class TurmaController {
 
     private final Logger log = LoggerFactory.getLogger(TurmaController.class);
     private TurmaService turmaService;
+
+    @GetMapping("/list")
+    public ResponseEntity<List<TurmaResponse>> getAllTurmas(){
+        try{
+            log.info("GET /turmas/list");
+            return ResponseEntity.ok(turmaService.getAllTurmas());
+        }catch (Exception e){
+            log.error(e.getMessage());
+            return ResponseEntity.internalServerError().build();
+        }
+    }
 
     @GetMapping("")
     public ResponseEntity<TurmaResponse> getTurma(@RequestParam(required = false) String codigo, @RequestParam(required = false) String nome) {

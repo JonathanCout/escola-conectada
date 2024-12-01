@@ -2,37 +2,39 @@ package com.unicarioca.portal.service;
 
 import com.unicarioca.portal.entity.Evento;
 import com.unicarioca.portal.repository.EventoRepository;
+import com.unicarioca.portal.service.crud.EventoCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class EventoService {
 
     @Autowired
-    private EventoRepository eventoRepository;
+    private EventoCrudService  eventoCrudService;
+
+    public List<Evento> getAllEventos(){
+        return eventoCrudService.getAllEventos();
+    }
+
     public Evento getEvento(String nome) {
-        return eventoRepository.findByNome(nome);
+        return eventoCrudService.getEvento(nome);
     }
 
     public Evento getEventoById(Long id) {
-        return eventoRepository.findById(id).orElse(null);
+        return eventoCrudService.getEventoById(id);
     }
 
     public Evento saveEvento(Evento eventoRequest) {
-        return eventoRepository.save(eventoRequest);
+        return eventoCrudService.saveEvento(eventoRequest);
     }
 
     public Evento updateEvento(Long id, Evento eventoNovo) {
-        Evento evento = getEventoById(id);
-        evento.setNome(eventoNovo.getNome() == null ? evento.getNome() : eventoNovo.getNome());
-        evento.setDescricao(eventoNovo.getDescricao() == null ? evento.getDescricao() : eventoNovo.getDescricao());
-        evento.setData(eventoNovo.getData() == null ? evento.getData() : eventoNovo.getData());
-        evento.setLocal(eventoNovo.getLocal() == null ? evento.getLocal() : eventoNovo.getLocal());
-
-        return eventoRepository.save(evento);
+        return eventoCrudService.updateEvento(id, eventoNovo);
     }
 
     public void deleteEvento(Long id) {
-        eventoRepository.deleteById(id);
+        eventoCrudService.deleteEvento(id);
     }
 }

@@ -6,11 +6,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MerendaService {
 
     @Autowired
     private MerendaCrudService merendaCrudService;
+
+    public List<Merenda> getAllMerendas() {
+        return merendaCrudService.getAllMerendas();
+    }
 
     public Merenda getMerenda(String nome) {
         return merendaCrudService.getMerenda(nome);
@@ -35,4 +41,5 @@ public class MerendaService {
     public void deleteMerenda(Long id) {
         merendaCrudService.deleteMerenda(id);
     }
+
 }
