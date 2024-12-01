@@ -1,4 +1,4 @@
-package com.unicarioca.portal.util;
+package com.unicarioca.portal.controller.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

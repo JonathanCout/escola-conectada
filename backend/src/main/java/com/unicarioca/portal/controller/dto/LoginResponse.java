@@ -8,5 +8,6 @@ import lombok.Data;
 public class LoginResponse {
 
     private String codigo;
-    private String descricao;
+    private String token;
+    private int expiraEm;
 }

@@ -1,5 +1,6 @@
 package com.unicarioca.portal.controller;
 
+import com.unicarioca.portal.controller.config.JwtCreator;
 import com.unicarioca.portal.controller.dto.LoginRequest;
 import com.unicarioca.portal.controller.dto.LoginResponse;
 import com.unicarioca.portal.service.AuthService;
@@ -20,6 +21,8 @@ public class AuthController {
     private final Logger log = LoggerFactory.getLogger(AuthController.class);
     @Autowired
     private AuthService authService;
+    @Autowired
+    private JwtCreator jwtCreator;
 
     @PostMapping("")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
@@ -27,11 +30,12 @@ public class AuthController {
         try {
             log.info("POST /login/request={}",loginRequest);
             authService.login(loginRequest);
-            return ResponseEntity.ok(new LoginResponse("200", "Login efetuado com sucesso"));
+            String jwt = jwtCreator.generateToken(loginRequest.getEmail());
+            return ResponseEntity.ok(new LoginResponse("200", jwt, 3600000));
 
         } catch (Exception e) {
             log.error(e.getMessage());
-            return ResponseEntity.status(HttpStatusCode.valueOf(403)).body(new LoginResponse("403", "Email ou senha inválidos"));
+            return ResponseEntity.status(HttpStatusCode.valueOf(401)).body(new LoginResponse("401", "Email ou senha inválidos",0));
         }
     }
 }
