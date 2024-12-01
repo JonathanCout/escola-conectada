@@ -3,9 +3,9 @@ package com.unicarioca.portal.controller;
 import com.unicarioca.portal.controller.dto.TurmaRequest;
 import com.unicarioca.portal.controller.dto.TurmaResponse;
 import com.unicarioca.portal.service.TurmaService;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +14,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/turmas")
-@RequiredArgsConstructor
 public class TurmaController {
 
     private final Logger log = LoggerFactory.getLogger(TurmaController.class);
+    @Autowired
     private TurmaService turmaService;
 
     @GetMapping("/list")

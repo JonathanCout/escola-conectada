@@ -4,7 +4,6 @@ import com.unicarioca.portal.controller.dto.ProfessorRequest;
 import com.unicarioca.portal.controller.dto.ProfessorResponse;
 import com.unicarioca.portal.service.crud.ProfessorCrudService;
 import com.unicarioca.portal.service.mapper.ProfessorMapper;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

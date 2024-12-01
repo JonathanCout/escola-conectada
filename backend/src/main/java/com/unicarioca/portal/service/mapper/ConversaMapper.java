@@ -5,8 +5,6 @@ import com.unicarioca.portal.entity.Aluno;
 import com.unicarioca.portal.entity.Conversa;
 import com.unicarioca.portal.entity.Professor;
 
-import java.util.stream.Collectors;
-
 public class ConversaMapper {
 
     public static Conversa toEntity(ConversaRequest conversaRequest) {

@@ -4,7 +4,6 @@ import com.unicarioca.portal.controller.dto.EnderecoRequest;
 import com.unicarioca.portal.entity.Endereco;
 import com.unicarioca.portal.repository.EnderecoRepository;
 import com.unicarioca.portal.service.mapper.EnderecoMapper;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

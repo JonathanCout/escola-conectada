@@ -1,8 +1,5 @@
 package com.unicarioca.portal.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.unicarioca.portal.controller.dto.AlunoResponse;
-import com.unicarioca.portal.controller.dto.TurmaResponse;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

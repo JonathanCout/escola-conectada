@@ -4,17 +4,12 @@ import com.unicarioca.portal.controller.dto.ConversaRequest;
 import com.unicarioca.portal.controller.dto.MensagemRequest;
 import com.unicarioca.portal.entity.Aluno;
 import com.unicarioca.portal.entity.Conversa;
-import com.unicarioca.portal.entity.Mensagem;
 import com.unicarioca.portal.entity.Professor;
 import com.unicarioca.portal.repository.ConversaRepository;
 import com.unicarioca.portal.service.mapper.ConversaMapper;
-import com.unicarioca.portal.service.mapper.MensagemMapper;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.stream.Collectors;
 
 @Service
 public class ConversaCrudService {

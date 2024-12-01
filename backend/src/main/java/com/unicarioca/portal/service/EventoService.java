@@ -1,7 +1,6 @@
 package com.unicarioca.portal.service;
 
 import com.unicarioca.portal.entity.Evento;
-import com.unicarioca.portal.repository.EventoRepository;
 import com.unicarioca.portal.service.crud.EventoCrudService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

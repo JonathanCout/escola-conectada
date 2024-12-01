@@ -5,7 +5,6 @@ import com.unicarioca.portal.entity.Disciplina;
 import com.unicarioca.portal.entity.Professor;
 import com.unicarioca.portal.entity.Turma;
 import com.unicarioca.portal.repository.TurmaRepository;
-import com.unicarioca.portal.service.mapper.TurmaMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

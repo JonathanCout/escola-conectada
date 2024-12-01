@@ -1,6 +1,5 @@
 package com.unicarioca.portal.service.crud;
 
-import com.unicarioca.portal.controller.dto.ProfessorResponse;
 import com.unicarioca.portal.entity.Professor;
 import com.unicarioca.portal.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;

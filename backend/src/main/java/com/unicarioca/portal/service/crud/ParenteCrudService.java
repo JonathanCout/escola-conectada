@@ -4,7 +4,6 @@ import com.unicarioca.portal.controller.dto.ParenteRequest;
 import com.unicarioca.portal.entity.Parente;
 import com.unicarioca.portal.repository.ParenteRepository;
 import com.unicarioca.portal.service.mapper.ParenteMapper;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

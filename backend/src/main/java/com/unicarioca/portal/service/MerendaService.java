@@ -2,7 +2,6 @@ package com.unicarioca.portal.service;
 
 import com.unicarioca.portal.entity.Merenda;
 import com.unicarioca.portal.service.crud.MerendaCrudService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

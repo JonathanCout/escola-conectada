@@ -1,7 +1,5 @@
 package com.unicarioca.portal.controller.dto;
 
-import com.unicarioca.portal.entity.AlunoTurma;
-import com.unicarioca.portal.entity.Endereco;
 import lombok.Data;
 
 import java.util.Set;
