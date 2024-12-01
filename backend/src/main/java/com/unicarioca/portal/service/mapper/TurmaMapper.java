@@ -21,6 +21,7 @@ public class TurmaMapper {
 
     public static TurmaResponse toDto(Turma turma) {
         TurmaResponse turmaResponse = new TurmaResponse();
+        turmaResponse.setId(turmaResponse.getId());
         turmaResponse.setNome(turma.getNome());
         turmaResponse.setCodigo(turma.getCodigo());
         turmaResponse.setAno(turma.getAno());

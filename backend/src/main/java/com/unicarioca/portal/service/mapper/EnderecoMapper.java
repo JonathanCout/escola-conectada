@@ -12,7 +12,6 @@ public class EnderecoMapper {
         }
 
         Endereco endereco = new Endereco();
-
         endereco.setCep( enderecoRequest.getCep() );
         endereco.setLogradouro( enderecoRequest.getLogradouro() );
         endereco.setNumero( enderecoRequest.getNumero() );
@@ -30,7 +29,7 @@ public class EnderecoMapper {
         }
 
         EnderecoResponse enderecoResponse = new EnderecoResponse();
-
+        enderecoResponse.setId(endereco.getId());
         enderecoResponse.setCep( endereco.getCep() );
         enderecoResponse.setLogradouro( endereco.getLogradouro() );
         enderecoResponse.setNumero( endereco.getNumero() );

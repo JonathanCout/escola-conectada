@@ -7,6 +7,7 @@ import java.util.Set;
 @Data
 public class DisciplinaResponse {
 
+    private Long id;
     private String nome;
     private String codigo;
     private String descricao;

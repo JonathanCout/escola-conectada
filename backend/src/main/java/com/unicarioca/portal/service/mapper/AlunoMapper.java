@@ -14,6 +14,7 @@ public class AlunoMapper {
             return null;
         }
         AlunoResponse alunoResponse = new AlunoResponse();
+        alunoResponse.setId(aluno.getId());
         alunoResponse.setNome(aluno.getNome());
         alunoResponse.setEmail(aluno.getEmail());
         alunoResponse.setCpf(aluno.getCpf());

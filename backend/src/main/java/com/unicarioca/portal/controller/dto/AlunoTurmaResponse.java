@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 @Data
 public class AlunoTurmaResponse {
 
+    private Long id;
     @JsonIdentityReference(alwaysAsId = true)
     private AlunoResponse alunoResponse;
     private TurmaResponse turmaResponse;

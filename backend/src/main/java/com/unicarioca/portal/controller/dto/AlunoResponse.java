@@ -9,6 +9,7 @@ import java.util.Set;
 @Data
 public class AlunoResponse {
 
+    private Long id;
     private String nome;
     private String email;
     private String matricula;

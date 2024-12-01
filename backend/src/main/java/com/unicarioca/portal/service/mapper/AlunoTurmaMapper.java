@@ -11,6 +11,7 @@ public class AlunoTurmaMapper {
 
     public static AlunoTurmaResponse toDto(AlunoTurma alunoTurma) {
         AlunoTurmaResponse alunoTurmaResponse = new AlunoTurmaResponse();
+        alunoTurmaResponse.setId(alunoTurma.getId());
         alunoTurmaResponse.setAlunoResponse(AlunoMapper.toDto(alunoTurma.getAluno()));
         alunoTurmaResponse.setTurmaResponse(TurmaMapper.toDto(alunoTurma.getTurma()));
         alunoTurmaResponse.setMedia(alunoTurma.getMedia());
@@ -19,7 +20,5 @@ public class AlunoTurmaMapper {
         alunoTurmaResponse.setFrequencia(presenca);
         return alunoTurmaResponse;
     }
-
-
 
 }

@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/professores")
 @RequiredArgsConstructor
@@ -18,6 +20,17 @@ public class ProfessorController {
 
     private final Logger log = LoggerFactory.getLogger(ProfessorController.class);
     private ProfessorService professorService;
+
+    @GetMapping("list")
+    public ResponseEntity<List<ProfessorResponse>> getAllProfessors(){
+        try{
+            log.info("GET /professores/list");
+            return ResponseEntity.ok(professorService.getAllProfessors());
+        }catch (Exception e){
+            log.error(e.getMessage());
+            return ResponseEntity.badRequest().build();
+        }
+    }
 
     @GetMapping("")
     public ResponseEntity<ProfessorResponse> getProfessor(@RequestParam(required = false) String cpf, @RequestParam(required = false) String matricula, @RequestParam(required = false) String email) {

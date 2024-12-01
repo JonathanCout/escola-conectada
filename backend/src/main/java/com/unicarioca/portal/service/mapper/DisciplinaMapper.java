@@ -8,13 +8,14 @@ import java.util.stream.Collectors;
 public class DisciplinaMapper {
 
         public static DisciplinaResponse toDto(Disciplina disciplina) {
-            DisciplinaResponse response = new DisciplinaResponse();
-            response.setNome(disciplina.getNome());
-            response.setCodigo(disciplina.getCodigo());
-            response.setCargaHoraria(disciplina.getCargaHoraria());
-            response.setEmenta(disciplina.getEmenta());
-            response.setBibliografia(disciplina.getBibliografia());
+            DisciplinaResponse disciplinaResponse = new DisciplinaResponse();
+            disciplinaResponse.setId(disciplina.getId());
+            disciplinaResponse.setNome(disciplina.getNome());
+            disciplinaResponse.setCodigo(disciplina.getCodigo());
+            disciplinaResponse.setCargaHoraria(disciplina.getCargaHoraria());
+            disciplinaResponse.setEmenta(disciplina.getEmenta());
+            disciplinaResponse.setBibliografia(disciplina.getBibliografia());
 
-            return response;
+            return disciplinaResponse;
         }
 }

@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProfessorService {
 
@@ -28,5 +30,9 @@ public class ProfessorService {
 
     public void deleteProfessor(Long id) {
         professorCrudService.deleteProfessor(id);
+    }
+
+    public List<ProfessorResponse> getAllProfessors() {
+        return professorCrudService.getAllProfessors().stream().map(ProfessorMapper::toDto).toList();
     }
 }

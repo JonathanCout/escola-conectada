@@ -8,6 +8,7 @@ import java.util.Set;
 @Data
 public class TurmaResponse {
 
+    private Long id;
     private String nome;
     private String codigo;
     private LocalTime horario;

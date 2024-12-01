@@ -8,6 +8,7 @@ public class ParenteMapper {
 
     public static ParenteResponse toDto(Parente parente){
         ParenteResponse parenteResponse = new ParenteResponse();
+        parenteResponse.setId(parente.getId());
         parenteResponse.setNome(parente.getNome());
         parenteResponse.setEmail(parente.getEmail());
         parenteResponse.setCpf(parente.getCpf());

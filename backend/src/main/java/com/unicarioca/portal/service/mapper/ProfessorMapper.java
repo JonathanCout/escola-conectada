@@ -7,15 +7,16 @@ import com.unicarioca.portal.entity.Professor;
 public class ProfessorMapper {
 
     public static ProfessorResponse toDto(Professor professor) {
-        ProfessorResponse response = new ProfessorResponse();
-        response.setNome(professor.getNome());
-        response.setEmail(professor.getEmail());
-        response.setCpf(professor.getCpf());
-        response.setTelefone(professor.getTelefone());
-        response.setEndereco(professor.getEndereco());
-        response.setMatricula(professor.getMatricula());
-        response.setEspecialidade(professor.getEspecialidade());
-        return response;
+        ProfessorResponse professorResponse = new ProfessorResponse();
+        professorResponse.setId(professor.getId());
+        professorResponse.setNome(professor.getNome());
+        professorResponse.setEmail(professor.getEmail());
+        professorResponse.setCpf(professor.getCpf());
+        professorResponse.setTelefone(professor.getTelefone());
+        professorResponse.setEndereco(professor.getEndereco());
+        professorResponse.setMatricula(professor.getMatricula());
+        professorResponse.setEspecialidade(professor.getEspecialidade());
+        return professorResponse;
     }
 
     public static Professor toEntity(ProfessorRequest professorRequest) {
