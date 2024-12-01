@@ -4,13 +4,17 @@ import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.unicarioca.portal.controller.dto.AlunoResponse;
 import com.unicarioca.portal.controller.dto.TurmaResponse;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Set;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AlunoTurma {
 
     @Id
