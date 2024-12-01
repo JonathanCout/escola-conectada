@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/alunos")
 public class AlunoController {
@@ -19,15 +21,26 @@ public class AlunoController {
     private AlunoService alunoService;
 
     @GetMapping("")
-    public ResponseEntity<AlunoResponse> getAluno(@RequestParam(required = false) String cpf, @RequestParam(required = false) String matricula, @RequestParam(required = false) String email) {
+    public ResponseEntity<AlunoResponse> getAlunos(@RequestParam(required = false) String cpf, @RequestParam(required = false) String matricula, @RequestParam(required = false) String email) {
         try{
             log.info("GET /alunos?cpf={}&matricula={}", cpf, matricula);
-            return ResponseEntity.ok(alunoService.getAluno(cpf, matricula, email));
+            return ResponseEntity.ok(alunoService.getAlunos(cpf, matricula, email));
         }catch (Exception e){
             log.error(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
 
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<AlunoResponse>> getAllAlunos(){
+        try{
+            log.info("GET /alunos/list");
+            return ResponseEntity.ok(alunoService.getAllAlunos());
+        }catch (Exception e){
+            log.error(e.getMessage());
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @GetMapping("/{id}")

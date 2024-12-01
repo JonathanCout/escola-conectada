@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,6 +26,10 @@ public class AlunoCrudService {
     private ParenteCrudService parenteCrudService;
     @Autowired
     private PasswordEncoder passwordEncoderConfig;
+
+    public List<Aluno> getAllAlunos(){
+        return alunoRepository.findAll();
+    }
 
     public Aluno getAlunoById(Long id) {
         return alunoRepository.findById(id).orElse(null);

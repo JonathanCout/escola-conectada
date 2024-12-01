@@ -10,55 +10,24 @@ import com.unicarioca.portal.service.crud.AlunoCrudService;
 import com.unicarioca.portal.service.crud.TurmaCrudService;
 import com.unicarioca.portal.service.mapper.AlunoMapper;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 
 @Service
 public class AlunoService {
 
+    private final Logger log = LoggerFactory.getLogger(AlunoService.class);
     @Autowired
     private AlunoCrudService alunoCrudService;
     @Autowired
     private TurmaCrudService turmaCrudService;
 
-    public void matricularAluno(String matricula, String codigoTurma) {
-        Aluno aluno = alunoCrudService.getAlunoByMatricula(matricula);
-        if (aluno == null) {
-            return;
-        }
-        Turma turma = turmaCrudService.getTurmaByCodigo(codigoTurma);
-        if (turma == null) {
-            return;
-        }
-        if (turma.getAlunoTurma() == null) {
-            turma.setAlunoTurma(new HashSet<>());
-        }
-        turma.getAlunoTurma().add(new AlunoTurma(){{
-            setAluno(aluno);
-            setTurma(turma);
-        }});
-        turmaCrudService.saveTurma(turma);
-    }
-
-    public void desmatricularAluno(String matricula, String codigoTurma) {
-        Aluno aluno = alunoCrudService.getAlunoByMatricula(matricula);
-        if (aluno == null) {
-            return;
-        }
-        Turma turma = turmaCrudService.getTurmaByCodigo(codigoTurma);
-        if (turma == null) {
-            return;
-        }
-        if (turma.getAlunoTurma() == null) {
-            return;
-        }
-        turma.getAlunoTurma().removeIf(alunoTurma -> alunoTurma.getAluno().getMatricula().equals(matricula));
-        turmaCrudService.saveTurma(turma);
-    }
-
-    public AlunoResponse getAluno(String cpf, String matricula, String email) {
+    public AlunoResponse getAlunos(String cpf, String matricula, String email) {
         Aluno aluno;
         if (cpf != null) {
             aluno = alunoCrudService.getAlunoByCpf(cpf);
@@ -70,6 +39,11 @@ public class AlunoService {
             return null;
         }
         return AlunoMapper.toDto(aluno);
+    }
+
+    public List<AlunoResponse> getAllAlunos(){
+        List<Aluno> alunos = alunoCrudService.getAllAlunos();
+        return alunos.stream().map(AlunoMapper::toDto).toList();
     }
 
     public AlunoResponse getAlunoById(Long id) {
