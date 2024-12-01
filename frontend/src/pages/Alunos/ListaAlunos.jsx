@@ -11,11 +11,13 @@ import {
   Typography,
   Box
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom'; 
 import { alunoService } from '../../services/alunoService';
 
 export const ListaAlunos = () => {
   const [alunos, setAlunos] = useState([]);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     carregarAlunos();
@@ -51,7 +53,7 @@ export const ListaAlunos = () => {
         variant="contained" 
         color="primary" 
         sx={{ mb: 2 }}
-        onClick={() => {/* Implementar navegação para página de criação */}}
+        onClick={() => navigate('/alunos/novo')}
       >
         Novo Aluno
       </Button>
