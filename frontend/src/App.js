@@ -10,6 +10,7 @@ import { ListaConversas } from './pages/Conversas/ListaConversas';
 import { Login } from './pages/Login/Login';
 import { authService } from './services/authService';
 import { NovoAluno } from './pages/Alunos/NovoAluno';
+import { EditarAluno } from './pages/Alunos/EditarAluno';
 
 const ProtectedRoute = ({ children }) => {
   if (!authService.isAuthenticated()) {
@@ -31,6 +32,7 @@ function App() {
               <Routes>
                 <Route path="/alunos" element={<ListaAlunos />} />
                 <Route path="/alunos/novo" element={<NovoAluno />} />
+                <Route path="/alunos/editar/:id" element={<EditarAluno />} />
                 <Route path="/turmas" element={<ListaTurmas />} />
                 <Route path="/avaliacoes" element={<ListaAvaliacoes />} />
                 <Route path="/merendas" element={<ListaMerendas />} />
