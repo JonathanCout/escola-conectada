@@ -1,13 +1,10 @@
 package com.unicarioca.portal.service.crud;
 
 import com.unicarioca.portal.controller.dto.AlunoRequest;
-import com.unicarioca.portal.controller.dto.AlunoResponse;
 import com.unicarioca.portal.entity.Aluno;
 import com.unicarioca.portal.entity.Endereco;
 import com.unicarioca.portal.repository.AlunoRepository;
 import com.unicarioca.portal.service.mapper.AlunoMapper;
-import com.unicarioca.portal.util.PasswordEncoderConfig;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
