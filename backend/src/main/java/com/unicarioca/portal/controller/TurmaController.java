@@ -3,7 +3,6 @@ package com.unicarioca.portal.controller;
 import com.unicarioca.portal.controller.dto.TurmaRequest;
 import com.unicarioca.portal.controller.dto.TurmaResponse;
 import com.unicarioca.portal.service.TurmaService;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,6 +74,5 @@ public class TurmaController {
             return ResponseEntity.badRequest().build();
         }
     }
-
 
 }
