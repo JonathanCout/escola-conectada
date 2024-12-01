@@ -3,7 +3,6 @@ package com.unicarioca.portal.controller;
 import com.unicarioca.portal.controller.dto.AlunoRequest;
 import com.unicarioca.portal.controller.dto.AlunoResponse;
 import com.unicarioca.portal.service.AlunoService;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,10 +31,12 @@ public class AlunoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AlunoResponse> getAlunoById(@PathParam("id") Long id) {
+    public ResponseEntity<AlunoResponse> getAlunoById(@PathVariable("id") Long id) {
         try{
+            log.info("GET /alunos/id={}",id);
             return ResponseEntity.ok(alunoService.getAlunoById(id));
         }catch (Exception e){
+            log.error(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
     }
@@ -43,27 +44,33 @@ public class AlunoController {
     @PostMapping("")
     public ResponseEntity<AlunoResponse> saveAluno(@RequestBody AlunoRequest alunoRequest) {
         try{
+            log.info("POST /alunos/request={}",alunoRequest);
             return ResponseEntity.ok(alunoService.saveAluno(alunoRequest));
         }catch (Exception e){
+            log.error(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAluno(@PathParam("id") Long id) {
+    public ResponseEntity<Void> deleteAluno(@PathVariable("id") Long id) {
         try{
+            log.info("DELETE /alunos/id={}",id);
             alunoService.deleteAluno(id);
             return ResponseEntity.ok().build();
         }catch (Exception e){
+            log.error(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AlunoResponse> updateAluno(@PathParam("id") Long id, @RequestBody AlunoRequest alunoRequest) {
+    public ResponseEntity<AlunoResponse> updateAluno(@PathVariable("id") Long id, @RequestBody AlunoRequest alunoRequest) {
         try{
+            log.info("PUT /alunos/id={}request={}",id, alunoRequest);
             return ResponseEntity.ok(alunoService.updateAluno(id, alunoRequest));
         }catch (Exception e){
+            log.error(e.getMessage());
             return ResponseEntity.badRequest().build();
         }
     }

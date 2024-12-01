@@ -18,8 +18,8 @@ public class ProfessorService {
         return ProfessorMapper.toDto(professorCrudService.getProfessorById(id));
     }
 
-    public ProfessorResponse getProfessor(String cpf, String matricula) {
-        return ProfessorMapper.toDto(professorCrudService.getProfessor(cpf, matricula));
+    public ProfessorResponse getProfessor(String cpf, String matricula, String email) {
+        return ProfessorMapper.toDto(professorCrudService.getProfessor(cpf, matricula, email));
     }
 
     public ProfessorResponse saveProfessor(ProfessorRequest professorRequest) {

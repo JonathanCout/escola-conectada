@@ -2,7 +2,6 @@ package com.unicarioca.portal.service.crud;
 
 import com.unicarioca.portal.entity.Professor;
 import com.unicarioca.portal.repository.ProfessorRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,11 +27,13 @@ public class ProfessorCrudService {
         return professorRepository.save(professor);
     }
 
-    public Professor getProfessor(String cpf, String matricula) {
+    public Professor getProfessor(String cpf, String matricula, String email) {
         if(cpf != null){
             return professorRepository.findByCpf(cpf);
         }else if(matricula != null){
-            return professorRepository.findByMatricula(matricula);
+            return getProfessorByMatricula(matricula);
+        }else if (email !=null){
+            return getProfessorByEmail(email);
         }
         return null;
     }
