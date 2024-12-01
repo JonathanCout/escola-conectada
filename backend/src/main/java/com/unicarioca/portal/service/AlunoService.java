@@ -2,20 +2,15 @@ package com.unicarioca.portal.service;
 
 import com.unicarioca.portal.controller.dto.AlunoRequest;
 import com.unicarioca.portal.controller.dto.AlunoResponse;
-import com.unicarioca.portal.controller.dto.LoginRequest;
 import com.unicarioca.portal.entity.Aluno;
-import com.unicarioca.portal.entity.AlunoTurma;
-import com.unicarioca.portal.entity.Turma;
 import com.unicarioca.portal.service.crud.AlunoCrudService;
 import com.unicarioca.portal.service.crud.TurmaCrudService;
 import com.unicarioca.portal.service.mapper.AlunoMapper;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -27,7 +22,7 @@ public class AlunoService {
     @Autowired
     private TurmaCrudService turmaCrudService;
 
-    public AlunoResponse getAlunos(String cpf, String matricula, String email) {
+    public AlunoResponse getAluno(String cpf, String matricula, String email) {
         Aluno aluno;
         if (cpf != null) {
             aluno = alunoCrudService.getAlunoByCpf(cpf);
@@ -51,6 +46,11 @@ public class AlunoService {
     }
 
     public AlunoResponse saveAluno(AlunoRequest alunoRequest) throws Exception {
+        AlunoResponse alunoExistente = getAluno(alunoRequest.getCpf(), alunoRequest.getMatricula(), alunoRequest.getEmail());
+        if (alunoExistente != null){
+            log.warn("Já existe um aluno cadastrado com as informações fornecidas");
+            throw new Exception("Já existe um aluno cadastrado com as informações fornecidas");
+        }
         return AlunoMapper.toDto(alunoCrudService.saveAluno(alunoRequest));
     }
 

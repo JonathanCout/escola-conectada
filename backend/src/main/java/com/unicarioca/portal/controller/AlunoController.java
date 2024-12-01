@@ -3,7 +3,6 @@ package com.unicarioca.portal.controller;
 import com.unicarioca.portal.controller.dto.AlunoRequest;
 import com.unicarioca.portal.controller.dto.AlunoResponse;
 import com.unicarioca.portal.service.AlunoService;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +22,8 @@ public class AlunoController {
     @GetMapping("")
     public ResponseEntity<AlunoResponse> getAlunos(@RequestParam(required = false) String cpf, @RequestParam(required = false) String matricula, @RequestParam(required = false) String email) {
         try{
-            log.info("GET /alunos?cpf={}&matricula={}", cpf, matricula);
-            return ResponseEntity.ok(alunoService.getAlunos(cpf, matricula, email));
+            log.info("GET /alunos?cpf={}&matricula={}&email{}", cpf, matricula, email);
+            return ResponseEntity.ok(alunoService.getAluno(cpf, matricula, email));
         }catch (Exception e){
             log.error(e.getMessage());
             return ResponseEntity.internalServerError().build();
@@ -61,7 +60,7 @@ public class AlunoController {
             return ResponseEntity.ok(alunoService.saveAluno(alunoRequest));
         }catch (Exception e){
             log.error(e.getMessage());
-            return ResponseEntity.internalServerError().build();
+            return ResponseEntity.badRequest().build();
         }
     }
 
