@@ -5,6 +5,8 @@ import com.unicarioca.portal.entity.Aluno;
 import com.unicarioca.portal.entity.Endereco;
 import com.unicarioca.portal.repository.AlunoRepository;
 import com.unicarioca.portal.service.mapper.AlunoMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 @Service
 public class AlunoCrudService {
 
+    private static final Logger log = LoggerFactory.getLogger(AlunoCrudService.class);
     @Autowired
     private AlunoRepository alunoRepository;
     @Autowired
@@ -77,8 +80,11 @@ public class AlunoCrudService {
         return alunoRepository.save(aluno);
     }
 
+    @Transactional
     public void deleteAluno(Long id) {
+        log.info("Removendo laços na tabela parente_aluno");
         alunoRepository.removeParenteJunction(id);
+        log.info("Deletando aluno com id {}", id);
         alunoRepository.deleteById(id);
     }
 
