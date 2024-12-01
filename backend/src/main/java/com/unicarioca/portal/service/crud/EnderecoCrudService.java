@@ -7,6 +7,7 @@ import com.unicarioca.portal.service.mapper.EnderecoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class EnderecoCrudService {
@@ -18,14 +19,12 @@ public class EnderecoCrudService {
         return enderecoRepository.findById(id).orElse(null);
     }
 
+    @Transactional
     public Endereco saveEndereco(EnderecoRequest enderecoRequest) {
         return enderecoRepository.save(EnderecoMapper.toEntity(enderecoRequest));
     }
 
-    public void deleteEndereco(Long id) {
-        enderecoRepository.deleteById(id);
-    }
-
+    @Transactional
     public Endereco updateEndereco(Long id, EnderecoRequest enderecoRequest) {
         Endereco endereco = enderecoRepository.findById(id).orElse(null);
         if (endereco == null) {
@@ -42,4 +41,10 @@ public class EnderecoCrudService {
 
         return enderecoRepository.save(endereco);
     }
+
+    @Transactional
+    public void deleteEndereco(Long id) {
+        enderecoRepository.deleteById(id);
+    }
+
 }

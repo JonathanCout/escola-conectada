@@ -5,6 +5,7 @@ import com.unicarioca.portal.entity.Professor;
 import com.unicarioca.portal.repository.ProfessorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -41,12 +42,12 @@ public class ProfessorCrudService {
         return professorRepository.findById(id).orElse(null);
     }
 
+    @Transactional
     public Professor saveProfessor(Professor professor){
         return professorRepository.save(professor);
     }
 
-
-
+    @Transactional
     public void deleteProfessor(Long id){
         professorRepository.deleteById(id);
     }

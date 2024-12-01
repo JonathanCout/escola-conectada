@@ -12,6 +12,7 @@ import com.unicarioca.portal.service.mapper.MensagemMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.stream.Collectors;
 
@@ -31,6 +32,7 @@ public class ConversaCrudService {
         return conversaRepository.findById(conversaId).orElse(null);
     }
 
+    @Transactional
     public Conversa saveConversa(ConversaRequest conversaRequest) {
         Conversa conversa = ConversaMapper.toEntity(conversaRequest);
         Aluno aluno = alunoCrudService.getAlunoById(conversa.getAluno().getId());
@@ -46,10 +48,7 @@ public class ConversaCrudService {
         return conversaRepository.save(conversa);
     }
 
-    public void deleteConversa(Long id) {
-        conversaRepository.deleteById(id);
-    }
-
+    @Transactional
     public Conversa updateConversa(Long id, ConversaRequest conversaRequest) {
         Conversa conversa = conversaRepository.findById(id).orElse(null);
         if (conversa == null) {
@@ -61,4 +60,10 @@ public class ConversaCrudService {
         conversa.getMensagens().add(mensagemCrudService.saveMensagem(mensagemRequest));
         return conversaRepository.save(conversa);
     }
+
+    @Transactional
+    public void deleteConversa(Long id) {
+        conversaRepository.deleteById(id);
+    }
+
 }

@@ -5,6 +5,7 @@ import com.unicarioca.portal.repository.EventoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,10 +14,6 @@ public class EventoCrudService {
 
     @Autowired
     private EventoRepository eventoRepository;
-
-    public void deleteEvento(Long id){
-        eventoRepository.deleteById(id);
-    }
 
     public Evento getEvento(String name){
         return eventoRepository.findByNome(name);
@@ -30,10 +27,12 @@ public class EventoCrudService {
         return eventoRepository.findById(id).orElse(null);
     }
 
+    @Transactional
     public Evento saveEvento(Evento evento){
         return eventoRepository.save(evento);
     }
 
+    @Transactional
     public Evento updateEvento(Long id, Evento evento){
         Evento eventoToUpdate = eventoRepository.findById(id).orElse(null);
         if (eventoToUpdate == null) {
@@ -45,4 +44,10 @@ public class EventoCrudService {
         eventoToUpdate.setLocal(evento.getLocal());
         return eventoRepository.save(eventoToUpdate);
     }
+
+    @Transactional
+    public void deleteEvento(Long id){
+        eventoRepository.deleteById(id);
+    }
+
 }

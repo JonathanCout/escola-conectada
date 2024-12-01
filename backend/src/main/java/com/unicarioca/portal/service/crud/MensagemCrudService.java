@@ -9,6 +9,7 @@ import com.unicarioca.portal.service.mapper.MensagemMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MensagemCrudService {
@@ -16,14 +17,16 @@ public class MensagemCrudService {
     @Autowired
     private MensagemRepository mensagemRepository;
 
-    public Mensagem saveMensagem(MensagemRequest mensagemRequest){
-        return mensagemRepository.save(MensagemMapper.toEntity(mensagemRequest));
-    }
-
     public Mensagem getMensagemById(Long id){
         return mensagemRepository.findById(id).orElse(null);
     }
 
+    @Transactional
+    public Mensagem saveMensagem(MensagemRequest mensagemRequest){
+        return mensagemRepository.save(MensagemMapper.toEntity(mensagemRequest));
+    }
+
+    @Transactional
     public void deleteMensagem(Long id){
         mensagemRepository.deleteById(id);
     }

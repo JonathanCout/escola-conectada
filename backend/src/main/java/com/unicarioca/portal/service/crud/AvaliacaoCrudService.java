@@ -7,6 +7,7 @@ import com.unicarioca.portal.service.mapper.AvaliacaoMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AvaliacaoCrudService {
@@ -17,14 +18,6 @@ public class AvaliacaoCrudService {
     private AlunoCrudService alunoCrudService;
     @Autowired
     private TurmaCrudService turmaCrudService;
-
-    public Avaliacao saveAvaliacao(AvaliacaoRequest avaliacaoRequesta){
-        Avaliacao avaliacao = AvaliacaoMapper.toEntity(avaliacaoRequesta);
-        avaliacao.setTurma(turmaCrudService.getTurmaByCodigo(avaliacaoRequesta.getCodigoTurma()));
-        avaliacao.setAluno(alunoCrudService.getAlunoByMatricula(avaliacaoRequesta.getAlunoMatricula()));
-
-        return avaliacaoRepository.save(avaliacao);
-    }
 
     public Avaliacao getAvaliacaoById(Long id){
         return avaliacaoRepository.findById(id).orElse(null);
@@ -38,10 +31,21 @@ public class AvaliacaoCrudService {
         return avaliacaoRepository.findByTurmaCodigo(codigo);
     }
 
+    @Transactional
+    public Avaliacao saveAvaliacao(AvaliacaoRequest avaliacaoRequesta){
+        Avaliacao avaliacao = AvaliacaoMapper.toEntity(avaliacaoRequesta);
+        avaliacao.setTurma(turmaCrudService.getTurmaByCodigo(avaliacaoRequesta.getCodigoTurma()));
+        avaliacao.setAluno(alunoCrudService.getAlunoByMatricula(avaliacaoRequesta.getAlunoMatricula()));
+
+        return avaliacaoRepository.save(avaliacao);
+    }
+
+    @Transactional
     public void deleteAvaliacao(Long id){
         avaliacaoRepository.deleteById(id);
     }
 
+    @Transactional
     public Avaliacao updateAvaliacao(Long id, AvaliacaoRequest avaliacaoRequest){
         Avaliacao avaliacao = getAvaliacaoById(id);
         if(avaliacao == null){
