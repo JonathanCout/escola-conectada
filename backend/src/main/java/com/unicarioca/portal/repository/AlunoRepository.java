@@ -10,6 +10,6 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
     Aluno findByCpf(String cpf);
     Aluno findByEmail(String email);
 
-    @Query(value = "DELETE parente_aluno where aluno_id = ?1", nativeQuery = true)
+    @Query(value = "DELETE FROM parente_aluno where aluno_id = ?1", nativeQuery = true)
     void removeParenteJunction(Long alunoId);
 }
