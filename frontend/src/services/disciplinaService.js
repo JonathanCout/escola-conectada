@@ -1,6 +1,6 @@
 import api from './api';
 
-export const professorService = {
+export const discplinaService = {
   getDisciplinas: async () => {
     try {
       await api.get('/disciplinas');
@@ -10,41 +10,31 @@ export const professorService = {
     }
   },
 
-  getProfessorById: async (id) => {
+  getDiscplinaById: async (id) => {
     try {
-      const response = await api.get(`/professores/${id}`);
+      const response = await api.get(`/discplinas/${id}`);
       return response.data;
     } catch (error) {
-      console.error('Erro ao buscar professor:', error);
+      console.error('Erro ao buscar discplina:', error);
       throw error;
     }
   },
 
-  createProfessor: async (professor) => {
+  createDiscplina: async (discplina) => {
     try {
-      const response = await api.post('/professores', professor);
+      const response = await api.post('/discplinas', discplina);
       return response.data;
     } catch (error) {
-      console.error('Erro ao criar professor:', error);
+      console.error('Erro ao criar discplina:', error);
       throw error;
     }
   },
 
-  updateProfessor: async (id, professor) => {
+  deleteDiscplina: async (id) => {
     try {
-      const response = await api.put(`/professores/${id}`, professor);
-      return response.data;
+      await api.delete(`/discplinas/${id}`);
     } catch (error) {
-      console.error('Erro ao atualizar professor:', error);
-      throw error;
-    }
-  },
-
-  deleteProfessor: async (id) => {
-    try {
-      await api.delete(`/professores/${id}`);
-    } catch (error) {
-      console.error('Erro ao deletar professor:', error);
+      console.error('Erro ao deletar discplina:', error);
       throw error;
     }
   },
