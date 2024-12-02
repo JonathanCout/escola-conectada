@@ -12,10 +12,12 @@ import {
   Box
 } from '@mui/material';
 import { turmaService } from '../../services/turmaService';
+import { useNavigate } from 'react-router-dom';
 
 export const ListaTurmas = () => {
   const [turmas, setTurmas] = useState([]);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     carregarTurmas();
@@ -51,7 +53,7 @@ export const ListaTurmas = () => {
         variant="contained" 
         color="primary" 
         sx={{ mb: 2 }}
-        onClick={() => {/* Implementar navegação para página de criação */}}
+        onClick={() => navigate('/Turmas/NovaTurma')/* Implementar navegação para página de criação */}
       >
         Nova Turma
       </Button>

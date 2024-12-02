@@ -11,6 +11,7 @@ import { Login } from './pages/Login/Login';
 import { authService } from './services/authService';
 import { NovoAluno } from './pages/Alunos/NovoAluno';
 import { EditarAluno } from './pages/Alunos/EditarAluno';
+import { NovaTurma } from './pages/Turmas/NovaTurma.jsx';
 
 const ProtectedRoute = ({ children }) => {
   if (!authService.isAuthenticated()) {
@@ -34,6 +35,7 @@ function App() {
                 <Route path="/alunos/novo" element={<NovoAluno />} />
                 <Route path="/alunos/editar/:id" element={<EditarAluno />} />
                 <Route path="/turmas" element={<ListaTurmas />} />
+                <Route path="/turmas/novaturma" element={<NovaTurma />} />
                 <Route path="/avaliacoes" element={<ListaAvaliacoes />} />
                 <Route path="/merendas" element={<ListaMerendas />} />
                 <Route path="/eventos" element={<ListaEventos />} />
