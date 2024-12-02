@@ -42,6 +42,8 @@ export const Layout = ({ children }) => {
 
   const menuItems = [
     { text: 'Alunos', icon: <PeopleIcon />, path: '/alunos' },
+    { text: 'Professor', icon: <PeopleIcon />, path: '/professores' },
+    { text: 'Disciplina', icon: <PeopleIcon />, path: '/disciplinas' },
     { text: 'Turmas', icon: <SchoolIcon />, path: '/turmas' },
     { text: 'Avaliações', icon: <AssignmentIcon />, path: '/avaliacoes' },
     { text: 'Merenda', icon: <RestaurantIcon />, path: '/merendas' },

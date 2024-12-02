@@ -13,7 +13,7 @@ export const turmaService = {
 
   getTurmaById: async (id) => {
     try {
-      const response = await api.get(`/turmas/${id}`);
+      const response = await api.get('/turmas/${id}');
       return response.data;
     } catch (error) {
       console.error('Erro ao buscar turma:', error);
@@ -33,7 +33,7 @@ export const turmaService = {
 
   updateTurma: async (id, turma) => {
     try {
-      const response = await api.put(`/turmas/${id}`, turma);
+      const response = await api.put('/turmas/${id}', turma);
       return response.data;
     } catch (error) {
       console.error('Erro ao atualizar turma:', error);
@@ -42,6 +42,24 @@ export const turmaService = {
   },
 
   deleteTurma: async (id) => {
+    try {
+      await api.delete(`/turmas/${id}`);
+    } catch (error) {
+      console.error('Erro ao deletar turma:', error);
+      throw error;
+    }
+  },
+
+  getProfessores: async (id) => {
+    try {
+      await api.delete(`/turmas/${id}`);
+    } catch (error) {
+      console.error('Erro ao deletar turma:', error);
+      throw error;
+    }
+  },
+
+  getDisciplinas: async (id) => {
     try {
       await api.delete(`/turmas/${id}`);
     } catch (error) {

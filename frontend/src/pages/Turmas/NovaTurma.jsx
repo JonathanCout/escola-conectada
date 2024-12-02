@@ -170,7 +170,7 @@ export const NovaTurma = () => {
           <Button
             variant="outlined"
             color="secondary"
-            onClick={() => navigate('/Turmas')}
+            onClick={() => navigate('/turmas')}
           >
             Cancelar
           </Button>
