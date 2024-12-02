@@ -12,9 +12,9 @@ import { authService } from './services/authService';
 import { NovoAluno } from './pages/Alunos/NovoAluno';
 import { EditarAluno } from './pages/Alunos/EditarAluno';
 import { ListaProfessores } from './pages/Professores/ListaProfessores';
-import {NovoProfessor}  from './pages/Professores/NovoProfessor';
-import {EditarProfessores}  from './pages/Professores/EditarProfessor';
-import {Chat} from './pages/Chat/Chat'; 
+import { NovoProfessor }  from './pages/Professores/NovoProfessor';
+import { EditarProfessores }  from './pages/Professores/EditarProfessor';
+import { Chat } from './pages/Chat/Chat'; 
 import { NovaTurma } from './pages/Turmas/NovaTurma.jsx';
 
 const ProtectedRoute = ({ children }) => {

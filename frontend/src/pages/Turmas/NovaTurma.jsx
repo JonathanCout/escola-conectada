@@ -38,8 +38,10 @@ export const NovaTurma = () => {
         turmaService.getProfessores(),
         turmaService.getDisciplinas(),
       ]);
-      setProfessores(professoresResponse);
-      setDisciplinas(disciplinasResponse);
+
+      // Garantir que os dados recebidos são arrays
+      setProfessores(Array.isArray(professoresResponse) ? professoresResponse : []);
+      setDisciplinas(Array.isArray(disciplinasResponse) ? disciplinasResponse : []);
     } catch (err) {
       setError('Erro ao carregar dados de professores e disciplinas.');
       console.error(err);
@@ -134,7 +136,7 @@ export const NovaTurma = () => {
             select
             sx={{ mb: 2 }}
           >
-            {professores.length > 0 ? (
+            {Array.isArray(professores) && professores.length > 0 ? (
               professores.map((professor) => (
                 <MenuItem key={professor.id} value={professor.id}>
                   {professor.nome}
@@ -154,7 +156,7 @@ export const NovaTurma = () => {
             select
             sx={{ mb: 2 }}
           >
-            {disciplinas.length > 0 ? (
+            {Array.isArray(disciplinas) && disciplinas.length > 0 ? (
               disciplinas.map((disciplina) => (
                 <MenuItem key={disciplina.id} value={disciplina.id}>
                   {disciplina.nome}
