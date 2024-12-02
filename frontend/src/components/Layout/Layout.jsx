@@ -11,6 +11,7 @@ import {
   IconButton,
   ListItem,
   ListItemIcon,
+  ListItemText,  // Adicionei esta importação
   Tooltip,
 } from '@mui/material';
 import { Avatar, Menu, MenuItem } from '@mui/material';
@@ -41,6 +42,8 @@ export const Layout = ({ children }) => {
 
   const menuItems = [
     { text: 'Alunos', icon: <PeopleIcon />, path: '/alunos' },
+    { text: 'Professor', icon: <PeopleIcon />, path: '/professores' },
+    { text: 'Disciplina', icon: <PeopleIcon />, path: '/disciplinas' },
     { text: 'Turmas', icon: <SchoolIcon />, path: '/turmas' },
     { text: 'Avaliações', icon: <AssignmentIcon />, path: '/avaliacoes' },
     { text: 'Merenda', icon: <RestaurantIcon />, path: '/merendas' },
@@ -104,6 +107,8 @@ export const Layout = ({ children }) => {
             <Tooltip title={item.text} placement="right" key={item.text}>
               <ListItem button onClick={() => navigate(item.path)}>
                 <ListItemIcon sx={{ minWidth: '40px' }}>{item.icon}</ListItemIcon>
+                {/* Adicionando ListItemText para exibir o nome do item */}
+                <ListItemText primary={item.text} />
               </ListItem>
             </Tooltip>
           ))}

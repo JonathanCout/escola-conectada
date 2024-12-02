@@ -37,6 +37,8 @@ export const ListaAlunos = () => {
   }, []);
 
   const carregarAlunos = async () => {
+    const data = await alunoService.getAlunos();
+    console.log(data);
     try {
       const data = await alunoService.getAlunos();
       console.log(data);

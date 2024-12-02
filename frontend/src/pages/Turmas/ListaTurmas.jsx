@@ -12,22 +12,29 @@ import {
   Box
 } from '@mui/material';
 import { turmaService } from '../../services/turmaService';
+import { useNavigate } from 'react-router-dom';
 
 export const ListaTurmas = () => {
   const [turmas, setTurmas] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     carregarTurmas();
   }, []);
 
   const carregarTurmas = async () => {
+    setLoading(true);
     try {
       const data = await turmaService.getTurmas();
-      setTurmas(data);
+      setTurmas(Array.isArray(data) ? data : []); // Garante que seja sempre um array
+      setError(null); // Limpa erros anteriores, se existirem
     } catch (err) {
-      setError('Erro ao carregar turmas');
+      setError('Erro ao carregar turmas. Tente novamente mais tarde.');
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -36,7 +43,7 @@ export const ListaTurmas = () => {
       await turmaService.deleteTurma(id);
       carregarTurmas(); // Recarrega a lista após deletar
     } catch (err) {
-      setError('Erro ao deletar turma');
+      setError(`Erro ao excluir a turma com ID ${id}. Tente novamente.`);
       console.error(err);
     }
   };
@@ -51,7 +58,7 @@ export const ListaTurmas = () => {
         variant="contained" 
         color="primary" 
         sx={{ mb: 2 }}
-        onClick={() => {/* Implementar navegação para página de criação */}}
+        onClick={() => navigate('/turmas/novaturma')}
       >
         Nova Turma
       </Button>
@@ -62,45 +69,59 @@ export const ListaTurmas = () => {
         </Typography>
       )}
 
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Código</TableCell>
-              <TableCell>Nome</TableCell>
-              <TableCell>Ano</TableCell>
-              <TableCell>Professor</TableCell>
-              <TableCell>Disciplina</TableCell>
-              <TableCell>Ações</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {turmas.map((turma) => (
-              <TableRow key={turma.id}>
-                <TableCell>{turma.codigo}</TableCell>
-                <TableCell>{turma.nome}</TableCell>
-                <TableCell>{turma.ano}</TableCell>
-                <TableCell>{turma.professor?.nome}</TableCell>
-                <TableCell>{turma.disciplina?.nome}</TableCell>
-                <TableCell>
-                  <Button 
-                    color="primary"
-                    onClick={() => {/* Implementar edição */}}
-                  >
-                    Editar
-                  </Button>
-                  <Button 
-                    color="error"
-                    onClick={() => handleDelete(turma.id)}
-                  >
-                    Excluir
-                  </Button>
-                </TableCell>
+      {loading ? (
+        <Typography align="center" sx={{ mt: 3 }}>
+          Carregando...
+        </Typography>
+      ) : (
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Código</TableCell>
+                <TableCell>Nome</TableCell>
+                <TableCell>Ano</TableCell>
+                <TableCell>Professor</TableCell>
+                <TableCell>Disciplina</TableCell>
+                <TableCell>Ações</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {Array.isArray(turmas) && turmas.length > 0 ? (
+                turmas.map((turma) => (
+                  <TableRow key={turma.id}>
+                    <TableCell>{turma.codigo}</TableCell>
+                    <TableCell>{turma.nome}</TableCell>
+                    <TableCell>{turma.ano}</TableCell>
+                    <TableCell>{turma.professor?.nome || 'N/A'}</TableCell>
+                    <TableCell>{turma.disciplina?.nome || 'N/A'}</TableCell>
+                    <TableCell>
+                      <Button 
+                        color="primary"
+                        onClick={() => navigate(`/turmas/editar/${turma.id}`)}
+                      >
+                        Editar
+                      </Button>
+                      <Button 
+                        color="error"
+                        onClick={() => handleDelete(turma.id)}
+                      >
+                        Excluir
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={6} align="center">
+                    Nenhuma turma encontrada.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
     </Box>
   );
 };

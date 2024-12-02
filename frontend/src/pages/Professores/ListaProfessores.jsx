@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   Table, 
   TableBody, 
@@ -16,6 +17,7 @@ import { professorService } from '../../services/professorService';
 export const ListaProfessores = () => {
   const [professores, setProfessores] = useState([]);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     carregarProfessores();
@@ -31,6 +33,10 @@ export const ListaProfessores = () => {
     }
   };
 
+  useEffect(() => {
+    carregarProfessores();
+  }, []);
+
   const handleDelete = async (id) => {
     try {
       await professorService.deleteProfessor(id);
@@ -39,6 +45,10 @@ export const ListaProfessores = () => {
       setError('Erro ao deletar professor');
       console.error(err);
     }
+  };
+
+  const handleEdit = (id) => {
+    navigate(`/professores/editar/${id}`); // Navega para a página de edição
   };
 
   return (
@@ -51,7 +61,7 @@ export const ListaProfessores = () => {
         variant="contained" 
         color="primary" 
         sx={{ mb: 2 }}
-        onClick={() => {/* Implementar navegação para página de criação */}}
+        onClick={() => {navigate('/professores/novo')}}
       >
         Novo Professor
       </Button>
@@ -83,7 +93,7 @@ export const ListaProfessores = () => {
                 <TableCell>
                   <Button 
                     color="primary"
-                    onClick={() => {/* Implementar edição */}}
+                    onClick={() => {handleEdit(professor.id)}}
                   >
                     Editar
                   </Button>

@@ -1,17 +1,7 @@
 import React, { useState } from 'react';
-import { 
-  TextField, 
-  Button, 
-  Typography, 
-  Box, 
-  Paper, 
-  Grid, 
-  IconButton 
-} from '@mui/material';
+import { TextField, Button, Typography, Box, Paper, Grid } from '@mui/material';
 import { professorService } from '../../services/professorService';
 import { useNavigate } from 'react-router-dom';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import DeleteIcon from '@mui/icons-material/Delete';
 
 export const NovoProfessor = () => {
   const [formData, setFormData] = useState({
@@ -19,9 +9,9 @@ export const NovoProfessor = () => {
     cpf: '',
     email: '',
     telefone: '',
-    senha: '',
     matricula: '',
     especialidade: '',
+    senha: '',
     lattes: '',
     endereco: {
       cep: '',
@@ -38,36 +28,39 @@ export const NovoProfessor = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
 
-  const handleNestedChange = (e, field) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [field]: {
-        ...formData[field],
+    // Verifica se o campo pertence a `endereco`
+    if (name.startsWith('endereco.')) {
+      const field = name.split('.')[1];
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        endereco: {
+          ...prevFormData.endereco,
+          [field]: value,
+        },
+      }));
+    } else {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
         [name]: value,
-      },
-    });
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(null); // Reseta mensagens de erro ao tentar novamente
     try {
       await professorService.createProfessor(formData);
-      navigate('/professores'); // Redireciona após o cadastro
+      navigate('/professores'); // Redireciona após o cadastro bem-sucedido
     } catch (err) {
-      setError('Erro ao cadastrar professor');
+      setError('Erro ao cadastrar professor. Verifique os dados e tente novamente.');
       console.error(err);
     }
   };
 
   return (
-    <Box sx={{ p: 3, maxWidth: 800, mx: 'auto' }}>
+    <Box sx={{ p: 3, maxWidth: 600, mx: 'auto' }}>
       <Paper sx={{ p: 3 }}>
         <Typography variant="h4" sx={{ mb: 3 }}>
           Cadastrar Novo Professor
@@ -80,10 +73,8 @@ export const NovoProfessor = () => {
         )}
 
         <form onSubmit={handleSubmit}>
-          {/* Dados Pessoais */}
-          <Typography variant="h6" sx={{ mb: 2 }}>Dados Pessoais</Typography>
           <Grid container spacing={2}>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <TextField
                 label="Nome"
                 name="nome"
@@ -93,7 +84,7 @@ export const NovoProfessor = () => {
                 required
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <TextField
                 label="CPF"
                 name="cpf"
@@ -103,27 +94,48 @@ export const NovoProfessor = () => {
                 required
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <TextField
                 label="Email"
                 name="email"
+                type="email"
                 fullWidth
                 value={formData.email}
                 onChange={handleChange}
                 required
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <TextField
                 label="Telefone"
                 name="telefone"
+                type="tel"
                 fullWidth
                 value={formData.telefone}
                 onChange={handleChange}
                 required
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
+              <TextField
+                label="Matrícula"
+                name="matricula"
+                fullWidth
+                value={formData.matricula}
+                onChange={handleChange}
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Especialidade"
+                name="especialidade"
+                fullWidth
+                value={formData.especialidade}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
               <TextField
                 label="Senha"
                 name="senha"
@@ -134,16 +146,7 @@ export const NovoProfessor = () => {
                 required
               />
             </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="Especialidade"
-                name="especialidade"
-                fullWidth
-                value={formData.especialidade}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <TextField
                 label="Lattes"
                 name="lattes"
@@ -152,103 +155,78 @@ export const NovoProfessor = () => {
                 onChange={handleChange}
               />
             </Grid>
-            <Grid item xs={6}>
-              <TextField
-                label="Matrícula"
-                name="matricula"
-                fullWidth
-                value={formData.matricula}
-                onChange={handleChange}
-                required
-              />
-            </Grid>
-          </Grid>
-
-          {/* Endereço */}
-          <Typography variant="h6" sx={{ mt: 3, mb: 2 }}>Endereço</Typography>
-          <Grid container spacing={2}>
-            <Grid item xs={4}>
+            <Grid item xs={12}>
               <TextField
                 label="CEP"
-                name="cep"
+                name="endereco.cep"
                 fullWidth
                 value={formData.endereco.cep}
-                onChange={(e) => handleNestedChange(e, 'endereco')}
-                required
+                onChange={handleChange}
               />
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={12}>
               <TextField
                 label="Logradouro"
-                name="logradouro"
+                name="endereco.logradouro"
                 fullWidth
                 value={formData.endereco.logradouro}
-                onChange={(e) => handleNestedChange(e, 'endereco')}
-                required
+                onChange={handleChange}
               />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12}>
               <TextField
                 label="Número"
-                name="numero"
+                name="endereco.numero"
                 fullWidth
                 value={formData.endereco.numero}
-                onChange={(e) => handleNestedChange(e, 'endereco')}
-                required
+                onChange={handleChange}
               />
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={12}>
               <TextField
                 label="Complemento"
-                name="complemento"
+                name="endereco.complemento"
                 fullWidth
                 value={formData.endereco.complemento}
-                onChange={(e) => handleNestedChange(e, 'endereco')}
+                onChange={handleChange}
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <TextField
                 label="Bairro"
-                name="bairro"
+                name="endereco.bairro"
                 fullWidth
                 value={formData.endereco.bairro}
-                onChange={(e) => handleNestedChange(e, 'endereco')}
-                required
+                onChange={handleChange}
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <TextField
                 label="Cidade"
-                name="cidade"
+                name="endereco.cidade"
                 fullWidth
                 value={formData.endereco.cidade}
-                onChange={(e) => handleNestedChange(e, 'endereco')}
-                required
+                onChange={handleChange}
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <TextField
                 label="Estado"
-                name="estado"
+                name="endereco.estado"
                 fullWidth
                 value={formData.endereco.estado}
-                onChange={(e) => handleNestedChange(e, 'endereco')}
-                required
+                onChange={handleChange}
               />
             </Grid>
           </Grid>
 
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
-            <Button 
-              variant="contained" 
-              color="primary" 
-              type="submit"
-            >
-              Salvar
+            <Button type="submit" variant="contained" color="primary">
+              Cadastrar
             </Button>
-            <Button 
-              variant="outlined" 
-              color="secondary" 
+            <Button
+              variant="outlined"
+              color="secondary"
               onClick={() => navigate('/professores')}
             >
               Cancelar
