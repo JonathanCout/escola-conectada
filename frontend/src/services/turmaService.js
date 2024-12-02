@@ -3,7 +3,7 @@ import api from './api';
 export const turmaService = {
   getTurmas: async () => {
     try {
-      const response = await api.get('/turmas');
+      const response = await api.get('/turmas/list');
       return response.data;
     } catch (error) {
       console.error('Erro ao buscar turmas:', error);
