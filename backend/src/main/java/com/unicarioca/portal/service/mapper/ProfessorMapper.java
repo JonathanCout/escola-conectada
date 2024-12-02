@@ -7,6 +7,9 @@ import com.unicarioca.portal.entity.Professor;
 public class ProfessorMapper {
 
     public static ProfessorResponse toDto(Professor professor) {
+        if (professor == null){
+            return null;
+        }
         ProfessorResponse professorResponse = new ProfessorResponse();
         professorResponse.setId(professor.getId());
         professorResponse.setNome(professor.getNome());
@@ -20,6 +23,9 @@ public class ProfessorMapper {
     }
 
     public static Professor toEntity(ProfessorRequest professorRequest) {
+        if (professorRequest == null){
+            return null;
+        }
         Professor professor = new Professor();
         professor.setNome(professorRequest.getNome());
         professor.setEmail(professorRequest.getEmail());
