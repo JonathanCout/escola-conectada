@@ -11,6 +11,10 @@ import { Login } from './pages/Login/Login';
 import { authService } from './services/authService';
 import { NovoAluno } from './pages/Alunos/NovoAluno';
 import { EditarAluno } from './pages/Alunos/EditarAluno';
+import { ListaProfessores } from './pages/Professores/ListaProfessores';
+import  NovoProfessor  from './pages/Professores/NovoProfessor';
+import  EditarProfessores  from './pages/Professores/EditarProfessor';
+import Chat from './pages/Chat/Chat'; 
 import { NovaTurma } from './pages/Turmas/NovaTurma.jsx';
 
 const ProtectedRoute = ({ children }) => {
@@ -40,7 +44,10 @@ function App() {
                 <Route path="/merendas" element={<ListaMerendas />} />
                 <Route path="/eventos" element={<ListaEventos />} />
                 <Route path="/conversas" element={<ListaConversas />} />
-                {/* Adicione outras rotas aqui */}
+                <Route path="/professores" element={<ListaProfessores />} />
+                <Route path="/professores/novo" element={<NovoProfessor />} />
+                <Route path="/professores/editar/:id" element={<EditarProfessores />} />
+                <Route path="/chat" element={<Chat />} />
               </Routes>
             </Layout>
             </ProtectedRoute>

@@ -205,3 +205,6 @@
        add constraint FK9xwtpw9i63l1u1uevrsdc6g69
        foreign key (professor_id)
        references professor;
+
+    insert into aluno(nome, cpf, email, senha)
+        values('admin','00000000000','admin','$2a$10$2Y7HwrW2lOceTqCInhOg9eFe.kctfG2lrldHYRohEJLZwhRI6f7re');
