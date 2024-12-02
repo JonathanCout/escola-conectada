@@ -12,16 +12,39 @@ export const NovoProfessor = () => {
     matricula: '',
     especialidade: '',
     senha: '',
+    lattes: '',
+    endereco: {
+      cep: '',
+      logradouro: '',
+      numero: '',
+      complemento: '',
+      bairro: '',
+      cidade: '',
+      estado: '',
+    },
   });
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
+
+    // Verifica se o campo pertence a `endereco`
+    if (name.startsWith('endereco.')) {
+      const field = name.split('.')[1];
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        endereco: {
+          ...prevFormData.endereco,
+          [field]: value,
+        },
+      }));
+    } else {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -121,6 +144,78 @@ export const NovoProfessor = () => {
                 value={formData.senha}
                 onChange={handleChange}
                 required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Lattes"
+                name="lattes"
+                fullWidth
+                value={formData.lattes}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="CEP"
+                name="endereco.cep"
+                fullWidth
+                value={formData.endereco.cep}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Logradouro"
+                name="endereco.logradouro"
+                fullWidth
+                value={formData.endereco.logradouro}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Número"
+                name="endereco.numero"
+                fullWidth
+                value={formData.endereco.numero}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Complemento"
+                name="endereco.complemento"
+                fullWidth
+                value={formData.endereco.complemento}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Bairro"
+                name="endereco.bairro"
+                fullWidth
+                value={formData.endereco.bairro}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Cidade"
+                name="endereco.cidade"
+                fullWidth
+                value={formData.endereco.cidade}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Estado"
+                name="endereco.estado"
+                fullWidth
+                value={formData.endereco.estado}
+                onChange={handleChange}
               />
             </Grid>
           </Grid>

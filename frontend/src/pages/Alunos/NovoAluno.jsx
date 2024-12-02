@@ -8,12 +8,12 @@ import {
   Grid, 
   IconButton 
 } from '@mui/material';
-import { alunoService } from '../../services/alunoService';
+import { professorService } from '../../services/professorService';
 import { useNavigate } from 'react-router-dom';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-export const NovoAluno = () => {
+export const NovoProfessor = () => {
   const [formData, setFormData] = useState({
     nome: '',
     cpf: '',
@@ -21,7 +21,8 @@ export const NovoAluno = () => {
     telefone: '',
     senha: '',
     matricula: '',
-    ano: '',
+    especialidade: '',
+    lattes: '',
     endereco: {
       cep: '',
       logradouro: '',
@@ -31,9 +32,6 @@ export const NovoAluno = () => {
       cidade: '',
       estado: '',
     },
-    responsaveis: [
-      { nome: '', cpf: '', email: '', telefone: '' },
-    ],
   });
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -46,49 +44,24 @@ export const NovoAluno = () => {
     });
   };
 
-  const handleNestedChange = (e, field, index = null) => {
+  const handleNestedChange = (e, field) => {
     const { name, value } = e.target;
-
-    if (index !== null) {
-      const updatedResponsaveis = [...formData.responsaveis];
-      updatedResponsaveis[index][name] = value;
-      setFormData({
-        ...formData,
-        responsaveis: updatedResponsaveis,
-      });
-    } else {
-      setFormData({
-        ...formData,
-        [field]: {
-          ...formData[field],
-          [name]: value,
-        },
-      });
-    }
-  };
-
-  const handleAddResponsavel = () => {
     setFormData({
       ...formData,
-      responsaveis: [
-        ...formData.responsaveis,
-        { nome: '', cpf: '', email: '', telefone: '' },
-      ],
+      [field]: {
+        ...formData[field],
+        [name]: value,
+      },
     });
-  };
-
-  const handleRemoveResponsavel = (index) => {
-    const updatedResponsaveis = formData.responsaveis.filter((_, i) => i !== index);
-    setFormData({ ...formData, responsaveis: updatedResponsaveis });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await alunoService.createAluno(formData);
-      navigate('/alunos'); // Redireciona após o cadastro
+      await professorService.createProfessor(formData);
+      navigate('/professores'); // Redireciona após o cadastro
     } catch (err) {
-      setError('Erro ao cadastrar aluno');
+      setError('Erro ao cadastrar professor');
       console.error(err);
     }
   };
@@ -97,9 +70,9 @@ export const NovoAluno = () => {
     <Box sx={{ p: 3, maxWidth: 800, mx: 'auto' }}>
       <Paper sx={{ p: 3 }}>
         <Typography variant="h4" sx={{ mb: 3 }}>
-          Cadastrar Novo Aluno
+          Cadastrar Novo Professor
         </Typography>
-        
+
         {error && (
           <Typography color="error" sx={{ mb: 2 }}>
             {error}
@@ -163,22 +136,29 @@ export const NovoAluno = () => {
             </Grid>
             <Grid item xs={6}>
               <TextField
-                label="Ano"
-                name="ano"
+                label="Especialidade"
+                name="especialidade"
                 fullWidth
-                value={formData.ano}
+                value={formData.especialidade}
                 onChange={handleChange}
-                required
               />
             </Grid>
             <Grid item xs={6}>
-                <TextField
+              <TextField
+                label="Lattes"
+                name="lattes"
+                fullWidth
+                value={formData.lattes}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
                 label="Matrícula"
                 name="matricula"
                 fullWidth
                 value={formData.matricula}
                 onChange={handleChange}
-                sx={{ mb: 2 }}
                 required
               />
             </Grid>
@@ -258,71 +238,6 @@ export const NovoAluno = () => {
             </Grid>
           </Grid>
 
-          {/* Responsáveis */}
-          <Typography variant="h6" sx={{ mt: 3, mb: 2 }}>Responsáveis</Typography>
-          {formData.responsaveis.map((responsavel, index) => (
-            <Grid container spacing={2} key={index} sx={{ mb: 2 }}>
-              <Grid item xs={6}>
-                <TextField
-                  label={`Nome do Responsável ${index + 1}`}
-                  name="nome"
-                  fullWidth
-                  value={responsavel.nome}
-                  onChange={(e) => handleNestedChange(e, 'responsaveis', index)}
-                  required
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  label={`CPF do Responsável ${index + 1}`}
-                  name="cpf"
-                  fullWidth
-                  value={responsavel.cpf}
-                  onChange={(e) => handleNestedChange(e, 'responsaveis', index)}
-                  required
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  label={`Email do Responsável ${index + 1}`}
-                  name="email"
-                  fullWidth
-                  value={responsavel.email}
-                  onChange={(e) => handleNestedChange(e, 'responsaveis', index)}
-                  required
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  label={`Telefone do Responsável ${index + 1}`}
-                  name="telefone"
-                  fullWidth
-                  value={responsavel.telefone}
-                  onChange={(e) => handleNestedChange(e, 'responsaveis', index)}
-                  required
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <IconButton
-                  color="error"
-                  onClick={() => handleRemoveResponsavel(index)}
-                  sx={{ mt: 1 }}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </Grid>
-            </Grid>
-          ))}
-          <Button
-            variant="outlined"
-            color="primary"
-            startIcon={<AddCircleIcon />}
-            onClick={handleAddResponsavel}
-            sx={{ mt: 2 }}
-          >
-            Adicionar Responsável
-          </Button>
-
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
             <Button 
               variant="contained" 
@@ -334,7 +249,7 @@ export const NovoAluno = () => {
             <Button 
               variant="outlined" 
               color="secondary" 
-              onClick={() => navigate('/alunos')}
+              onClick={() => navigate('/professores')}
             >
               Cancelar
             </Button>

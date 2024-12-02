@@ -43,27 +43,27 @@ export const turmaService = {
 
   deleteTurma: async (id) => {
     try {
-      await api.delete(`/turmas/${id}`);
+      await api.delete('/turmas/${id}');
     } catch (error) {
       console.error('Erro ao deletar turma:', error);
       throw error;
     }
   },
 
-  getProfessores: async (id) => {
+  getProfessores: async () => {
     try {
-      await api.delete(`/turmas/${id}`);
+      await api.get('/professores');
     } catch (error) {
-      console.error('Erro ao deletar turma:', error);
+      console.error('Erro ao buscar professores:', error);
       throw error;
     }
   },
 
-  getDisciplinas: async (id) => {
+  getDisciplinas: async () => {
     try {
-      await api.delete(`/turmas/${id}`);
+      await api.get('/disciplinas');
     } catch (error) {
-      console.error('Erro ao deletar turma:', error);
+      console.error('Erro ao buscar disciplinas:', error);
       throw error;
     }
   },
