@@ -38,7 +38,6 @@ function App() {
                 <Route path="/merendas" element={<ListaMerendas />} />
                 <Route path="/eventos" element={<ListaEventos />} />
                 <Route path="/conversas" element={<ListaConversas />} />
-                {/* Adicione outras rotas aqui */}
               </Routes>
             </Layout>
             </ProtectedRoute>
