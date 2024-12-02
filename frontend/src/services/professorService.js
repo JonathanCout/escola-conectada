@@ -3,7 +3,7 @@ import api from './api';
 export const professorService = {
   getProfessores: async () => {
     try {
-      const response = await api.get('/professores');
+      const response = await api.get('/professores/list');
       return response.data;
     } catch (error) {
       console.error('Erro ao buscar professores:', error);
