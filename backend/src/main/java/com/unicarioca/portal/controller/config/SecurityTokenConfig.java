@@ -31,6 +31,7 @@ public class SecurityTokenConfig {
                 csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login").permitAll()
+                        .requestMatchers("/swagger-ui/*", "/swagger-ui" ,"/v3/api-docs","/v3/api-docs/*").permitAll()
                         .anyRequest().hasRole("ADMIN")
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

@@ -35,10 +35,11 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         log.info("Headers: " + request.getHeaderNames());
+        log.info("Path: " + request.getServletPath());
         String authorization = request.getHeader("Authorization");
         log.info("Rodando filtro interno de autenticacao");
         // Essa parte é para autorizar no caso do /login
-        if (request.getServletPath().equals("/login")){
+        if (request.getServletPath().equals("/login") || request.getServletPath().contains("/swagger-ui") || request.getServletPath().contains("/v3/api-docs")){
             filterChain.doFilter(request,response);
             return;
         }
