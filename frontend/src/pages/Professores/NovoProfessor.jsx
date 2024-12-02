@@ -4,7 +4,7 @@ import { TextField, Button, Typography, Box, Paper } from '@mui/material';
 import { professorService } from '../../services/professorService';
 import { useNavigate } from 'react-router-dom';
 
-const NovoProfessor = () => {
+export const NovoProfessor = () => {
   const [formData, setFormData] = useState({
     nome: '',
     cpf: '',
@@ -110,5 +110,3 @@ const NovoProfessor = () => {
     </Box>
   );
 };
-
-export default NovoProfessor;

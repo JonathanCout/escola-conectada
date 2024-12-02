@@ -4,7 +4,7 @@ import { TextField, Button, Typography, Box, Paper } from '@mui/material';
 import { professorService } from '../../services/professorService';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const EditarProfessores = () => {
+export const EditarProfessores = () => {
   const { id } = useParams(); // Obtém o ID do professor a ser editado
   const navigate = useNavigate();
   
@@ -132,5 +132,3 @@ const EditarProfessores = () => {
     </Box>
   );
 };
-
-export default EditarProfessores; // Certifique-se de que esta linha está presente

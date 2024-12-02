@@ -112,4 +112,3 @@ export const ListaProfessores = () => {
       </Box>
   );
 };
-export default ListaProfessores;
