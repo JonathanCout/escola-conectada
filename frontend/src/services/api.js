@@ -22,4 +22,17 @@ api.interceptors.request.use(
   }
 );
 
+// Trata erros globais nas respostas
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      authService.logout(); // Remove o token inválido
+      window.location.href = '/login'; // Redireciona para a página de login
+    }
+    return Promise.reject(error);
+  }
+);
+
+console.log('API Configurada:', api);
 export default api;
