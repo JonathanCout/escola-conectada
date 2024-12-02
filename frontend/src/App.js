@@ -46,7 +46,6 @@ function App() {
                 <Route path="/professores/novo" element={<NovoProfessor />} />
                 <Route path="/professores/editar/:id" element={<EditarProfessores />} />
                 <Route path="/chat" element={<Chat />} />
-                {/* Adicione outras rotas aqui */}
               </Routes>
             </Layout>
             </ProtectedRoute>
