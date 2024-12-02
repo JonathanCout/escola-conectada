@@ -20,68 +20,50 @@ public class EventoController {
 
     @GetMapping("")
     public ResponseEntity<Evento> getEvento(@RequestParam(required = false) String nome) {
-        try{
-            log.info("GET /eventos/name={}",nome);
-            return ResponseEntity.ok(eventoService.getEvento(nome));
-        }catch (Exception e){
-            log.error(e.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
+
+        log.info("GET /eventos/name={}",nome);
+        return ResponseEntity.ok(eventoService.getEvento(nome));
+
     }
 
     @GetMapping("/list")
     public ResponseEntity<List<Evento>> getAllEventos(){
-        try{
-            log.info("GET /eventos/list");
-            return ResponseEntity.ok(eventoService.getAllEventos());
-        }catch (Exception e){
-            log.error(e.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
+
+        log.info("GET /eventos/list");
+        return ResponseEntity.ok(eventoService.getAllEventos());
+
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Evento> getEventoById(@PathVariable("id") Long id) {
-        try{
-            log.info("GET /eventos/id={}",id);
-            return ResponseEntity.ok(eventoService.getEventoById(id));
-        }catch (Exception e){
-            log.error(e.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
+
+        log.info("GET /eventos/id={}",id);
+        return ResponseEntity.ok(eventoService.getEventoById(id));
+
     }
 
     @PostMapping("")
     public ResponseEntity<Evento> saveEvento(@RequestBody Evento evento) {
-        try{
-            log.info("POST /eventos/request={}",evento);
-            return ResponseEntity.ok(eventoService.saveEvento(evento));
-        }catch (Exception e){
-            log.error(e.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
+
+        log.info("POST /eventos/request={}",evento);
+        return ResponseEntity.ok(eventoService.saveEvento(evento));
+
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Evento> updateEvento(@PathVariable("id") Long id, @RequestBody Evento evento) {
-        try{
-            log.info("PUT /eventos/id={},request={}",id, evento);
-            return ResponseEntity.ok(eventoService.updateEvento(id, evento));
-        }catch (Exception e){
-            log.error(e.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
+
+        log.info("PUT /eventos/id={},request={}",id, evento);
+        return ResponseEntity.ok(eventoService.updateEvento(id, evento));
+
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEvento(@PathVariable("id") Long id) {
-        try{
-            log.info("DELETE /eventos/id={}",id);
-            eventoService.deleteEvento(id);
-            return ResponseEntity.ok().build();
-        }catch (Exception e){
-            log.error(e.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
+
+        log.info("DELETE /eventos/id={}",id);
+        eventoService.deleteEvento(id);
+        return ResponseEntity.ok().build();
+
     }
 }

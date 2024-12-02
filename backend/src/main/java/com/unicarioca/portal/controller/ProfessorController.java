@@ -24,57 +24,42 @@ public class ProfessorController {
 
     @GetMapping("list")
     public ResponseEntity<List<ProfessorResponse>> getAllProfessors(){
-        try{
-            log.info("GET /professores/list");
-            return ResponseEntity.ok(professorService.getAllProfessors());
-        }catch (Exception e){
-            log.error(e.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
+
+        log.info("GET /professores/list");
+        return ResponseEntity.ok(professorService.getAllProfessors());
+
     }
 
     @GetMapping("")
     public ResponseEntity<ProfessorResponse> getProfessor(@RequestParam(required = false) String cpf, @RequestParam(required = false) String matricula, @RequestParam(required = false) String email) {
-        try{
-            log.info("GET /professores/cpf={}&matricula={}&email={}",cpf,matricula, email);
-            return ResponseEntity.ok(professorService.getProfessor(cpf, matricula,email));
-        }catch (Exception e){
-            log.error(e.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
+
+        log.info("GET /professores/cpf={}&matricula={}&email={}",cpf,matricula, email);
+        return ResponseEntity.ok(professorService.getProfessor(cpf, matricula,email));
+
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ProfessorResponse> getProfessor(@PathVariable("id") Long id) {
-        try{
-            log.info("GET /professores/id={}",id);
-            return ResponseEntity.ok(professorService.getProfessor(id));
-        }catch (Exception e){
-            log.error(e.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
+
+        log.info("GET /professores/id={}",id);
+        return ResponseEntity.ok(professorService.getProfessor(id));
+
     }
 
     @PostMapping("")
-    public ResponseEntity<ProfessorResponse> saveProfessor(@Validated @RequestBody ProfessorRequest professorRequest) {
-        try{
-            log.info("POST /professores/request={}",professorRequest);
-            return ResponseEntity.ok(professorService.saveProfessor(professorRequest));
-        }catch (Exception e){
-            log.error(e.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<ProfessorResponse> saveProfessor(@Validated @RequestBody ProfessorRequest professorRequest) throws Exception {
+
+        log.info("POST /professores/request={}",professorRequest);
+        return ResponseEntity.ok(professorService.saveProfessor(professorRequest));
+
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProfessor(@PathVariable("id") Long id) {
-        try{
-            log.info("DELETE /professores/id={}",id);
-            professorService.deleteProfessor(id);
-            return ResponseEntity.ok().build();
-        }catch (Exception e){
-            log.error(e.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
+
+        log.info("DELETE /professores/id={}",id);
+        professorService.deleteProfessor(id);
+        return ResponseEntity.ok().build();
+
     }
 }

@@ -21,69 +21,47 @@ public class AlunoController {
 
     @GetMapping("")
     public ResponseEntity<AlunoResponse> getAlunos(@RequestParam(required = false) String cpf, @RequestParam(required = false) String matricula, @RequestParam(required = false) String email) {
-        try{
-            log.info("GET /alunos?cpf={}&matricula={}&email{}", cpf, matricula, email);
-            return ResponseEntity.ok(alunoService.getAluno(cpf, matricula, email));
-        }catch (Exception e){
-            log.error(e.getMessage());
-            return ResponseEntity.internalServerError().build();
-        }
+
+        log.info("GET /alunos?cpf={}&matricula={}&email{}", cpf, matricula, email);
+        return ResponseEntity.ok(alunoService.getAluno(cpf, matricula, email));
 
     }
 
     @GetMapping("/list")
     public ResponseEntity<List<AlunoResponse>> getAllAlunos(){
-        try{
-            log.info("GET /alunos/list");
-            return ResponseEntity.ok(alunoService.getAllAlunos());
-        }catch (Exception e){
-            log.error(e.getMessage());
-            return ResponseEntity.internalServerError().build();
-        }
+
+        log.info("GET /alunos/list");
+        return ResponseEntity.ok(alunoService.getAllAlunos());
+
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AlunoResponse> getAlunoById(@PathVariable("id") Long id) {
-        try{
-            log.info("GET /alunos/id={}",id);
-            return ResponseEntity.ok(alunoService.getAlunoById(id));
-        }catch (Exception e){
-            log.error(e.getMessage());
-            return ResponseEntity.internalServerError().build();
-        }
+        log.info("GET /alunos/id={}",id);
+        return ResponseEntity.ok(alunoService.getAlunoById(id));
     }
 
     @PostMapping("")
-    public ResponseEntity<AlunoResponse> saveAluno(@RequestBody AlunoRequest alunoRequest) {
-        try{
-            log.info("POST /alunos/request={}",alunoRequest);
-            return ResponseEntity.ok(alunoService.saveAluno(alunoRequest));
-        }catch (Exception e){
-            log.error(e.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<AlunoResponse> saveAluno(@RequestBody AlunoRequest alunoRequest) throws Exception {
+        log.info("POST /alunos/request={}",alunoRequest);
+        return ResponseEntity.ok(alunoService.saveAluno(alunoRequest));
+
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAluno(@PathVariable("id") Long id) {
-        try{
-            log.info("DELETE /alunos/id={}",id);
-            alunoService.deleteAluno(id);
-            return ResponseEntity.ok().build();
-        }catch (Exception e){
-            log.error(e.getMessage());
-            return ResponseEntity.internalServerError().build();
-        }
+
+        log.info("DELETE /alunos/id={}",id);
+        alunoService.deleteAluno(id);
+        return ResponseEntity.ok().build();
+
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<AlunoResponse> updateAluno(@PathVariable("id") Long id, @RequestBody AlunoRequest alunoRequest) {
-        try{
-            log.info("PUT /alunos/id={}request={}",id, alunoRequest);
-            return ResponseEntity.ok(alunoService.updateAluno(id, alunoRequest));
-        }catch (Exception e){
-            log.error(e.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
+
+        log.info("PUT /alunos/id={}request={}",id, alunoRequest);
+        return ResponseEntity.ok(alunoService.updateAluno(id, alunoRequest));
+
     }
 }
