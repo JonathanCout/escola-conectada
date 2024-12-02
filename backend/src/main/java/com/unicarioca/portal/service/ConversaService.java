@@ -37,7 +37,7 @@ public class ConversaService {
         // Lógica para enviar uma nova mensagem
         Conversa conversa = conversaRepository.findById(conversaId).orElseThrow(() -> new RuntimeException("Conversa não encontrada"));
         Mensagem mensagem = new Mensagem();
-        mensagem.setConteudo(mensagemRequest.getConteudo ());
+        mensagem.setConteudo(mensagemRequest.getConteudo());
         mensagem.setRemetenteId(mensagemRequest.getRemetenteId());
         mensagem.setDataEnvio(LocalDateTime.now());
         mensagem.setConversa(conversa);
