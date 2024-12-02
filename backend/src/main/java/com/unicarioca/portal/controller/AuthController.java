@@ -30,7 +30,7 @@ public class AuthController {
         try {
             log.info("POST /login/request={}",loginRequest);
             authService.login(loginRequest);
-            String jwt = jwtCreator.generateToken(loginRequest.getEmail());
+            String jwt = jwtCreator.generateToken(loginRequest.getTipoUsuario().toUpperCase());
             return ResponseEntity.ok(new LoginResponse("200", jwt, 3600000));
 
         } catch (Exception e) {
