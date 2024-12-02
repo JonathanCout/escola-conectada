@@ -3,7 +3,7 @@ import api from './api';
 export const merendaService = {
   getMerendas: async () => {
     try {
-      const response = await api.get('/merendas');
+      const response = await api.get('/merendas/list');
       return response.data;
     } catch (error) {
       console.error('Erro ao buscar merendas:', error);

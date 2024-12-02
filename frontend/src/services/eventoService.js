@@ -3,7 +3,7 @@ import api from './api';
 export const eventoService = {
   getEventos: async () => {
     try {
-      const response = await api.get('/eventos');
+      const response = await api.get('/eventos/list');
       return response.data;
     } catch (error) {
       console.error('Erro ao buscar eventos:', error);
