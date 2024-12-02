@@ -16,6 +16,7 @@ import { professorService } from '../../services/professorService';
 
 export const ListaProfessores = () => {
   const [professores, setProfessores] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -24,18 +25,18 @@ export const ListaProfessores = () => {
   }, []);
 
   const carregarProfessores = async () => {
+    setLoading(true);
     try {
       const data = await professorService.getProfessores();
-      setProfessores(data);
+      setProfessores(Array.isArray(data) ? data : []);
+      setError(null);
     } catch (err) {
       setError('Erro ao carregar professores');
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
-
-  useEffect(() => {
-    carregarProfessores();
-  }, []);
 
   const handleDelete = async (id) => {
     try {
