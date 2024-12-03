@@ -1,6 +1,6 @@
 import api from './api';
 
-export const discplinaService = {
+export const disciplinaService = {
   getDisciplinas: async () => {
     try {
       await api.get('/disciplinas/list');
@@ -10,31 +10,31 @@ export const discplinaService = {
     }
   },
 
-  getDiscplinaById: async (id) => {
+  getDisciplinaById: async (id) => {
     try {
-      const response = await api.get(`/discplinas/${id}`);
+      const response = await api.get(`/disciplinas/${id}`);
       return response.data;
     } catch (error) {
-      console.error('Erro ao buscar discplina:', error);
+      console.error('Erro ao buscar disciplina:', error);
       throw error;
     }
   },
 
-  createDiscplina: async (discplina) => {
+  createDisciplina: async (disciplina) => {
     try {
-      const response = await api.post('/discplinas', discplina);
+      const response = await api.post('/disciplinas', disciplina);
       return response.data;
     } catch (error) {
-      console.error('Erro ao criar discplina:', error);
+      console.error('Erro ao criar disciplina:', error);
       throw error;
     }
   },
 
-  deleteDiscplina: async (id) => {
+  deleteDisciplina: async (id) => {
     try {
-      await api.delete(`/discplinas/${id}`);
+      await api.delete(`/disciplinas/${id}`);
     } catch (error) {
-      console.error('Erro ao deletar discplina:', error);
+      console.error('Erro ao deletar disciplina:', error);
       throw error;
     }
   },

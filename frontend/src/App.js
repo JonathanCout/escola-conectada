@@ -16,6 +16,8 @@ import { NovoProfessor }  from './pages/Professores/NovoProfessor';
 import { EditarProfessores }  from './pages/Professores/EditarProfessor';
 import { Chat } from './pages/Chat/Chat'; 
 import { NovaTurma } from './pages/Turmas/NovaTurma.jsx';
+import { ListaDisciplina } from './pages/Disciplinas/ListaDisciplinas.jsx';
+import { NovaDisciplina } from './pages/Disciplinas/NovaDisciplina.jsx';
 
 const ProtectedRoute = ({ children }) => {
   if (!authService.isAuthenticated()) {
@@ -47,6 +49,8 @@ function App() {
                 <Route path="/conversas" element={<ListaConversas />} />
                 <Route path="/professores" element={<ListaProfessores />} />
                 <Route path="/professores/novo" element={<NovoProfessor />} />
+                <Route path="/disciplinas" element={<ListaDisciplina />} />
+                <Route path="/disciplinas/novo" element={<NovaDisciplina />} />
                 <Route path="/professores/editar/:id" element={<EditarProfessores />} />
                 <Route path="/chat" element={<Chat />} />
               </Routes>
