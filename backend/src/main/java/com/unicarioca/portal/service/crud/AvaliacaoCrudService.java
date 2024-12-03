@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class AvaliacaoCrudService {
 
@@ -22,12 +24,12 @@ public class AvaliacaoCrudService {
         return avaliacaoRepository.findById(id).orElse(null);
     }
 
-    public Avaliacao getAvaliacaoByAlunoMatricula(String matricula){
-        return avaliacaoRepository.findByAlunoMatricula(matricula);
+    public List<Avaliacao> getAvaliacaoByAlunoId(Long alunoId){
+        return avaliacaoRepository.findByAlunoId(alunoId);
     }
 
-    public Avaliacao getAvaliacaoByTurmaCodigo(String codigo){
-        return avaliacaoRepository.findByTurmaCodigo(codigo);
+    public List<Avaliacao> getAvaliacaoByTurmaId(Long turmaId){
+        return avaliacaoRepository.findByTurmaId(turmaId);
     }
 
     @Transactional
@@ -55,6 +57,5 @@ public class AvaliacaoCrudService {
 
         return avaliacaoRepository.save(avaliacao);
     }
-
 
 }
