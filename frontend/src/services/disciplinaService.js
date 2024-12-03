@@ -3,7 +3,8 @@ import api from './api';
 export const disciplinaService = {
   getDisciplinas: async () => {
     try {
-      await api.get('/disciplinas/list');
+      const response = await api.get('/disciplinas/list');
+      return response.data
     } catch (error) {
       console.error('Erro ao buscar disciplinas:', error);
       throw error;
