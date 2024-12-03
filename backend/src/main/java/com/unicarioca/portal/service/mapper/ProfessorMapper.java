@@ -19,6 +19,7 @@ public class ProfessorMapper {
         professorResponse.setEndereco(professor.getEndereco());
         professorResponse.setMatricula(professor.getMatricula());
         professorResponse.setEspecialidade(professor.getEspecialidade());
+        professorResponse.setLattes(professorResponse.getLattes());
         return professorResponse;
     }
 
@@ -33,6 +34,7 @@ public class ProfessorMapper {
         professor.setTelefone(professorRequest.getTelefone());
         professor.setEndereco(EnderecoMapper.toEntity(professorRequest.getEndereco()));
         professor.setMatricula(professorRequest.getMatricula());
+        professor.setLattes(professorRequest.getLattes());
         professor.setEspecialidade(professorRequest.getEspecialidade());
         return professor;
     }
