@@ -28,6 +28,7 @@ export const ListaDisciplina = () => {
     setLoading(true);
     try {
       const data = await disciplinaService.getDisciplinas();
+      console.log(data);
       setDisciplinas(Array.isArray(data) ? data : []);
       setError(null);
     } catch (err) {
