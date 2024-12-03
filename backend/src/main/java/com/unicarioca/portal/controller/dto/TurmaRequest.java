@@ -1,5 +1,6 @@
 package com.unicarioca.portal.controller.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalTime;
@@ -10,6 +11,7 @@ public class TurmaRequest {
 
     private String codigo;
     private String periodo;
+    @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime horario;
     private Long professorId;
     private Long disciplinaId;
