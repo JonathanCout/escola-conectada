@@ -38,8 +38,16 @@ public class TurmaCrudService {
     }
 
     @Transactional
-    public Turma saveTurma(Turma turma) {
-        return turmaRepository.save(turma);
+    public Turma saveTurma(Turma turmaRequest) {
+        Turma turma = getTurmaByCodigo(turmaRequest.getCodigo());
+        if (turma != null){
+            return turma;
+        }
+
+        turmaRequest.setProfessor(professorCrudService.getProfessorById(turmaRequest.getProfessor().getId()));
+        turmaRequest.setDisciplina(disciplinaCrudService.getDisciplinaById(turmaRequest.getDisciplina().getId()));
+
+        return turmaRepository.save(turmaRequest);
     }
 
     @Transactional
