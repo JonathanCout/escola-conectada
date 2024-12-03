@@ -53,7 +53,6 @@ public class AlunoService {
             throw new Exception("Já existe um aluno cadastrado com as informações fornecidas");
         }
 
-
         return AlunoMapper.toDto(alunoCrudService.saveAluno(alunoRequest));
     }
 

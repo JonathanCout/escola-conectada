@@ -40,7 +40,7 @@ public class DisciplinaController {
     @GetMapping("/{id}")
     public ResponseEntity<DisciplinaResponse> getDisciplina(@PathVariable("id") Long id) {
 
-        log.info("GET /disciplinas/id={}",id);
+        log.info("GET /disciplinas/ id={}",id);
         return ResponseEntity.ok(disciplinaService.getDisciplina(id));
 
     }
@@ -48,7 +48,7 @@ public class DisciplinaController {
     @PostMapping("")
     public ResponseEntity<DisciplinaResponse> saveDisciplina(@Validated @RequestBody DisciplinaRequest disciplinaRequest) {
 
-        log.info("POST /disciplines/request={}",disciplinaRequest);
+        log.info("POST /disciplinas/ request={}",disciplinaRequest);
         return ResponseEntity.ok(disciplinaService.saveDisciplina(disciplinaRequest));
 
     }
@@ -56,7 +56,7 @@ public class DisciplinaController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteDisciplina(@PathVariable("id") Long id) {
 
-        log.info("DELETE /disciplinas/id={}",id);
+        log.info("DELETE /disciplinas/ id={}",id);
         disciplinaService.deleteDisciplina(id);
         return ResponseEntity.ok().build();
 
