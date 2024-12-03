@@ -100,7 +100,6 @@ public class AlunoCrudService {
         aluno.setEmail(alunoRequest.getEmail());
         aluno.setCpf(alunoRequest.getCpf());
         aluno.setTelefone(alunoRequest.getTelefone());
-        aluno.setMatricula(alunoRequest.getMatricula());
         Endereco endereco = enderecoCrudService.updateEndereco(aluno.getEndereco().getId(), alunoRequest.getEndereco());
         aluno.setEndereco(endereco == null ? aluno.getEndereco() : endereco);
 

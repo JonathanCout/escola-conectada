@@ -22,6 +22,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleGlobalException(Exception ex, WebRequest request) {
         Map<String, Object> body = new HashMap<>();
+        log.error("Erro ocorrido", ex);
         body.put("timestamp", new Date());
         body.put("message", "Erro interno no servidor: " + ex.getMessage());
         return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -30,6 +31,7 @@ public class GlobalExceptionHandler {
     // Tratamento para validação de argumentos
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        log.error("Erro ocorrido", ex);
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getFieldErrors().forEach(error ->
                 errors.put(error.getField(), error.getDefaultMessage())

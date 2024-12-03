@@ -52,6 +52,8 @@ public class AlunoService {
             log.warn("Já existe um aluno cadastrado com as informações fornecidas");
             throw new Exception("Já existe um aluno cadastrado com as informações fornecidas");
         }
+
+
         return AlunoMapper.toDto(alunoCrudService.saveAluno(alunoRequest));
     }
 
