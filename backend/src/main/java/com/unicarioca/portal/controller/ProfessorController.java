@@ -54,6 +54,14 @@ public class ProfessorController {
 
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ProfessorResponse> saveProfessor(@PathVariable  Long id, @RequestBody ProfessorRequest professorRequest) throws Exception {
+
+        log.info("PUT /professores/request={}",professorRequest);
+        return ResponseEntity.ok(professorService.updateProfessor(id, professorRequest));
+
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProfessor(@PathVariable("id") Long id) {
 

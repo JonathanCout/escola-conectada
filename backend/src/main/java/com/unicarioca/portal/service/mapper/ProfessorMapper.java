@@ -19,7 +19,7 @@ public class ProfessorMapper {
         professorResponse.setEndereco(professor.getEndereco());
         professorResponse.setMatricula(professor.getMatricula());
         professorResponse.setEspecialidade(professor.getEspecialidade());
-        professorResponse.setLattes(professorResponse.getLattes());
+        professorResponse.setLattes(professor.getLattes());
         return professorResponse;
     }
 

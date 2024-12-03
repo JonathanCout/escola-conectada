@@ -4,6 +4,7 @@ import com.unicarioca.portal.controller.dto.ProfessorRequest;
 import com.unicarioca.portal.controller.dto.ProfessorResponse;
 import com.unicarioca.portal.entity.Professor;
 import com.unicarioca.portal.service.crud.ProfessorCrudService;
+import com.unicarioca.portal.service.mapper.EnderecoMapper;
 import com.unicarioca.portal.service.mapper.ProfessorMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,5 +45,20 @@ public class ProfessorService {
 
     public List<ProfessorResponse> getAllProfessors() {
         return professorCrudService.getAllProfessors().stream().map(ProfessorMapper::toDto).toList();
+    }
+
+    public ProfessorResponse updateProfessor(Long id, ProfessorRequest professorRequest) throws Exception{
+        Professor professor = professorCrudService.getProfessorById(id);
+        if (professor == null){
+            throw new Exception("Professor não encontrado no sistema");
+        }
+
+        professor.setEspecialidade(professorRequest.getEspecialidade());
+        professor.setLattes(professorRequest.getLattes());
+        professor.setEndereco(EnderecoMapper.toEntity(professorRequest.getEndereco()));
+        professor.setEmail(professorRequest.getEmail());
+        professor.setTelefone(professorRequest.getTelefone());
+
+        return ProfessorMapper.toDto(professorCrudService.saveProfessor(professor));
     }
 }
