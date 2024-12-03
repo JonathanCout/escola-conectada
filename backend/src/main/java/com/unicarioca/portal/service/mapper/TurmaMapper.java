@@ -4,6 +4,7 @@ import com.unicarioca.portal.controller.dto.TurmaRequest;
 import com.unicarioca.portal.controller.dto.TurmaResponse;
 import com.unicarioca.portal.entity.*;
 
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 public class TurmaMapper {
@@ -15,7 +16,7 @@ public class TurmaMapper {
         turma.setHorario(turmaRequest.getHorario());
         turma.setProfessor(new Professor(){{setId(turmaRequest.getProfessorId());}});
         turma.setDisciplina(new Disciplina(){{setId(turmaRequest.getDisciplinaId());}});
-        turma.setAlunoTurma(turmaRequest.getAlunosId().stream().map(alunoId -> new AlunoTurma(){{setAluno(new Aluno(){{setId(alunoId);}});}}).collect(Collectors.toSet()));
+        turma.setAlunoTurma(turmaRequest.getAlunosId() == null ? new HashSet<>() : turmaRequest.getAlunosId().stream().map(alunoId -> new AlunoTurma(){{setAluno(new Aluno(){{setId(alunoId);}});}}).collect(Collectors.toSet()));
         return turma;
     }
 
