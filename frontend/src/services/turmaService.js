@@ -49,22 +49,4 @@ export const turmaService = {
       throw error;
     }
   },
-
-  getProfessores: async () => {
-    try {
-      await api.get('/professores');
-    } catch (error) {
-      console.error('Erro ao buscar professores:', error);
-      throw error;
-    }
-  },
-
-  getDisciplinas: async () => {
-    try {
-      await api.get('/disciplinas');
-    } catch (error) {
-      console.error('Erro ao buscar disciplinas:', error);
-      throw error;
-    }
-  },
 };

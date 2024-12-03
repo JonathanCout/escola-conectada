@@ -10,18 +10,28 @@ import {
   Alert,
 } from '@mui/material';
 import { turmaService } from '../../services/turmaService';
+import { professorService } from '../../services/professorService';
+import { disciplinaService } from '../../services/disciplinaService';
+import { alunoService } from '../../services/alunoService';
 import { useNavigate } from 'react-router-dom';
 
 export const NovaTurma = () => {
   const [formData, setFormData] = useState({
     codigo: '',
-    nome: '',
-    ano: '',
-    professor: '',
-    disciplina: '',
+    periodo: '',
+    horario: {
+      hour: 0,
+      minute: 0,
+      second: 0,
+      nano: 0,
+    },
+    professorId: '',
+    disciplinaId: '',
+    alunosId: [],  // Aqui os alunos selecionados serão armazenados
   });
   const [professores, setProfessores] = useState([]);
   const [disciplinas, setDisciplinas] = useState([]);
+  const [alunos, setAlunos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -34,16 +44,18 @@ export const NovaTurma = () => {
   const carregarDados = async () => {
     setLoading(true);
     try {
-      const [professoresResponse, disciplinasResponse] = await Promise.all([
-        turmaService.getProfessores(),
-        turmaService.getDisciplinas(),
-      ]);
+      const [professoresResponse, disciplinasResponse, alunosResponse] =
+        await Promise.all([
+          professorService.getProfessores(),
+          disciplinaService.getDisciplinas(),
+          alunoService.getAlunos(),
+        ]);
 
-      // Garantir que os dados recebidos são arrays
       setProfessores(Array.isArray(professoresResponse) ? professoresResponse : []);
       setDisciplinas(Array.isArray(disciplinasResponse) ? disciplinasResponse : []);
+      setAlunos(Array.isArray(alunosResponse) ? alunosResponse : []);
     } catch (err) {
-      setError('Erro ao carregar dados de professores e disciplinas.');
+      setError('Erro ao carregar dados.');
       console.error(err);
     } finally {
       setLoading(false);
@@ -58,6 +70,26 @@ export const NovaTurma = () => {
     }));
   };
 
+  const handleHorarioChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      horario: {
+        ...prevFormData.horario,
+        [name]: parseInt(value, 10),
+      },
+    }));
+  };
+
+  // Ajuste para a seleção de múltiplos alunos
+  const handleAlunosChange = (e) => {
+    const selectedAlunos = Array.from(e.target.selectedOptions, (option) => parseInt(option.value, 10));
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      alunosId: selectedAlunos,
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
@@ -69,10 +101,11 @@ export const NovaTurma = () => {
       setSuccess(true);
       setFormData({
         codigo: '',
-        nome: '',
-        ano: '',
-        professor: '',
-        disciplina: '',
+        periodo: '',
+        horario: { hour: 0, minute: 0, second: 0, nano: 0 },
+        professorId: '',
+        disciplinaId: '',
+        alunosId: [],
       });
     } catch (err) {
       setError('Erro ao criar turma. Verifique os dados e tente novamente.');
@@ -104,67 +137,90 @@ export const NovaTurma = () => {
             fullWidth
             required
             sx={{ mb: 2 }}
-            inputProps={{ maxLength: 10 }}
           />
           <TextField
-            label="Nome"
-            name="nome"
-            value={formData.nome}
+            label="Período"
+            name="periodo"
+            value={formData.periodo}
             onChange={handleChange}
             fullWidth
             required
             sx={{ mb: 2 }}
           />
           <TextField
-            label="Ano"
-            name="ano"
+            label="Hora"
+            name="hour"
             type="number"
-            value={formData.ano}
-            onChange={handleChange}
+            value={formData.horario.hour}
+            onChange={handleHorarioChange}
             fullWidth
             required
             sx={{ mb: 2 }}
-            inputProps={{ min: 2000, max: 2100 }}
+            inputProps={{ min: 0, max: 23 }}
+          />
+          <TextField
+            label="Minuto"
+            name="minute"
+            type="number"
+            value={formData.horario.minute}
+            onChange={handleHorarioChange}
+            fullWidth
+            required
+            sx={{ mb: 2 }}
+            inputProps={{ min: 0, max: 59 }}
           />
           <TextField
             label="Professor"
-            name="professor"
-            value={formData.professor}
+            name="professorId"
+            value={formData.professorId}
             onChange={handleChange}
             fullWidth
             required
             select
             sx={{ mb: 2 }}
           >
-            {Array.isArray(professores) && professores.length > 0 ? (
-              professores.map((professor) => (
-                <MenuItem key={professor.id} value={professor.id}>
-                  {professor.nome}
-                </MenuItem>
-              ))
-            ) : (
-              <MenuItem disabled>Carregando professores...</MenuItem>
-            )}
+            {professores.map((professor) => (
+              <MenuItem key={professor.id} value={professor.id}>
+                {professor.nome}
+              </MenuItem>
+            ))}
           </TextField>
           <TextField
             label="Disciplina"
-            name="disciplina"
-            value={formData.disciplina}
+            name="disciplinaId"
+            value={formData.disciplinaId}
             onChange={handleChange}
             fullWidth
             required
             select
             sx={{ mb: 2 }}
           >
-            {Array.isArray(disciplinas) && disciplinas.length > 0 ? (
-              disciplinas.map((disciplina) => (
-                <MenuItem key={disciplina.id} value={disciplina.id}>
-                  {disciplina.nome}
-                </MenuItem>
-              ))
-            ) : (
-              <MenuItem disabled>Carregando disciplinas...</MenuItem>
-            )}
+            {disciplinas.map((disciplina) => (
+              <MenuItem key={disciplina.id} value={disciplina.id}>
+                {disciplina.nome}
+              </MenuItem>
+            ))}
+          </TextField>
+          
+          {/* Campo de seleção de múltiplos alunos */}
+          <TextField
+            label="Alunos"
+            name="alunosId"
+            value={formData.alunosId}
+            onChange={handleAlunosChange}
+            fullWidth
+            required
+            select
+            sx={{ mb: 2 }}
+            SelectProps={{
+              multiple: true,  // Permite selecionar múltiplos alunos
+            }}
+          >
+            {alunos.map((aluno) => (
+              <MenuItem key={aluno.id} value={aluno.id}>
+                {aluno.nome}
+              </MenuItem>
+            ))}
           </TextField>
 
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
